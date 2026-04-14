@@ -1,0 +1,147 @@
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# ansible
+alias ap="ansible-playbook"
+
+# brew
+alias bi="brew install"
+
+# buildah
+alias bud="buildah bud"
+alias brun="buildah run "$ctr" --"
+
+# dnf
+alias sdu="sudo dnf update"
+alias sduy="sudo dnf update -y"
+alias sdi="sudo dnf install"
+alias sdiy="sudo dnf install -y"
+
+
+# general config
+# alias cat="bat"
+alias nvd="cd ~/.dotfiles && nvim ."
+alias nvs="nv ~/.ssh/config"
+alias vd="cd ~/.dotfiles && nvim ."
+alias vsc="nvim ~/.ssh/config"
+alias vkh="nvim ~/.ssh/known_hosts"
+alias vhost="sudo nvim /etc/hosts"
+
+# git
+alias gi="git init"
+alias gs="git status"
+alias ga="git add"
+alias gco="git checkout"
+alias gcm="git commit -m"
+alias gp="git push -u origin"
+alias gpm="git push -u origin main"
+alias gfa="git fetch --all"
+
+# finder
+alias fp="fzf --preview "bat --color=always --style=numbers --line-range=:500 {}""
+
+# zsh config
+alias vz="nvim ~/.dotfiles/zsh/.zshrc"
+alias sz="source ~/.dotfiles/zsh/.zshrc"
+
+
+
+# tmux
+# alias ta="tmux a"
+alias st="tmux source ~/.tmux.conf"
+
+# pnpm
+alias pn="pnpm"
+alias pna="pnpm add"
+alias pne="pnpm e2e"
+alias pnl="pnpm start:local"
+alias pnd="pnpm start:dev"
+alias pns="pnpm start:stg"
+
+# vagrant
+alias vst="vagrant status"
+alias vv="vagrant validate"
+alias vs="vagrant ssh"
+alias vu="vagrant up"
+alias vsu="vagrant suspend"
+alias vulv="vagrant up --provider=libvirt"
+alias vh="vagrant halt"
+alias vp="vagrant provision"
+alias vd="vagrant destroy"
+alias vdf="vagrant destroy -f"
+alias vgs="vagrant global-status"
+
+# podman
+alias pd="podman"
+alias pr="podman run --rm"
+alias pc="podman compose"
+alias pcud="podman compose up -d"
+alias pcd="podman compose down"
+
+# pulumi
+alias pl="pulumi"
+alias plp="pulumi preview"
+
+# docker
+# alias dprune="docker rmi -f $(docker images -f "dangling=true" -q)"
+
+# docker compose
+alias dc="docker compose"
+alias dcu="docker compose up"
+alias dcub="docker compose up --build"
+alias dcb="docker compose build"
+alias dcud="docker compose up -d"
+alias dcd="docker compose down"
+# alias dcls="docker compose ls"
+
+# justfile
+alias j="just"
+alias jr="just run"
+alias jl="just --list"
+
+# k8s
+alias k="kubectl"
+alias kk="kubectl kustomize"
+alias kcx="kubectl ctx"
+alias kns="kubectl ns"
+
+alias air="~/.air"
+
+# rust and cargo related aliases
+alias tcr="RUST_LOG=trace cargo run"
+alias dcr="RUST_LOG=debug cargo run"
+alias cr="RUST_LOG=info cargo run"
+alias tct="RUST_LOG=trace cargo test"
+alias dct="RUST_LOG=debug cargo test"
+alias ct="RUST_LOG=info cargo test"
+alias cb="cargo build"
+alias cbr="cargo build --release"
+alias cn="cargo new"
+alias clw="cargo leptos watch"
+
+# taskfile
+# alias t="task"
+# alias tr="task run"
+# alias trc="task run-cli"
+# alias tb="task build"
+# alias tt="task test"
+
+# terraform
+alias tf="terraform"
+
+# trunk
+alias tso="trunk serve --open"
+alias tbr="trunk build --release"
+
+# nvim
+alias v="nvim"
+alias v.="nvim ."

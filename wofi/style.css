@@ -1,0 +1,45 @@
+* {
+  font-family:
+    "Fira Sans Semibold", "Font Awesome 6 Free", FontAwesome, Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+window {
+  margin: 0px;
+  border: 1px solid #7a8478;
+  background-color: #1e2326;
+}
+
+#input {
+  margin: 5px;
+  border: none;
+  color: #d3c6aa;
+  background-color: #272e33;
+}
+
+#inner-box {
+  margin: 5px;
+  border: none;
+  background-color: #1e2326;
+}
+
+#outer-box {
+  margin: 5px;
+  border: none;
+  background-color: #1e2326;
+}
+
+#scroll {
+  margin: 0px;
+  border: none;
+}
+
+#text {
+  margin: 5px;
+  border: none;
+  color: #d3c6aa;
+}
+
+#entry:selected {
+  background-color: #272e33;
+}

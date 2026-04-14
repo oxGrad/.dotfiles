@@ -1,0 +1,7 @@
+font-family = "JetBrains Mono"
+font-size = 12
+background-opacity = 0.9
+
+# hide title
+gtk-titlebar = false
+window-decoration = false

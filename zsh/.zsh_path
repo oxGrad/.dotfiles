@@ -1,0 +1,104 @@
+# ============================================================================
+# UNIFIED PATH MANAGEMENT
+# ============================================================================
+# This consolidates all PATH exports into a single, maintainable section
+# Priority order: user-local -> language tools -> development tools -> system
+
+# Array-based PATH configuration for easy maintenance
+declare -a USER_LOCAL_PATHS=(
+    "$HOME/.local/bin"              # User local binaries (highest priority)
+    "$HOME/bin"                     # User binaries
+)
+
+declare -a LANGUAGE_TOOLS_PATHS=(
+    "/usr/local/go/bin"             # Go binary
+    "$HOME/go/bin"                  # Go development tools
+    "$HOME/.cargo/bin"              # Rust development tools
+    "$HOME/.local/share/pnpm"       # Pnpm development tools
+    "$HOME/.krew/bin"               # Kubernetes krew
+    "$HOME/.rd/bin"                 # Rancher Desktop (managed)
+    "$HOME/.rvm/bin"                # Ruby Version Manager
+
+)
+
+declare -a DEV_TOOLS_PATHS=(
+  "$HOME/.terragrunt/bin"
+  "$HOME/.pulumi/bin"             # Pulumi CLI
+  "$HOME/.cache/lm-studio/bin"    # LM Studio CLI
+  )
+
+declare -a SYSTEM_PATHS=()
+if [[ "$(uname)" == "Linux" ]]; then
+    SYSTEM_PATHS=(
+        "/bin"
+        "/usr/bin"
+        "/usr/local/bin"
+        "/usr/local/sbin"
+        "/home/linuxbrew/.linuxbrew/bin"
+        "/var/lib/snapd/snap/bin"
+    )
+elif [[ "$(uname)" == "Darwin" ]]; then
+    SYSTEM_PATHS=(
+        "/bin"
+        "/usr/bin"
+        "/usr/local/bin"
+        "/usr/local/sbin"
+        "/sbin"
+        "/usr/sbin"
+        "/opt/homebrew/bin"
+    )
+fi
+
+# Android development paths (conditional)
+declare -a ANDROID_PATHS=()
+if [[ -n "$ANDROID_HOME" ]]; then
+    ANDROID_PATHS=(
+        "$ANDROID_HOME/cmdline-tools/latest/bin"
+        "$ANDROID_HOME/platform-tools"
+        "$ANDROID_HOME/emulator"
+    )
+fi
+
+# Build unified PATH array with proper priority ordering
+declare -a PATH_ARRAY=(
+    "${USER_LOCAL_PATHS[@]}"
+    "${LANGUAGE_TOOLS_PATHS[@]}"
+    "${DEV_TOOLS_PATHS[@]}"
+    "${ANDROID_PATHS[@]}"
+    "${SYSTEM_PATHS[@]}"
+)
+
+# Convert array to PATH string, filtering non-existent directories
+NEW_PATH=""
+for path in "${PATH_ARRAY[@]}"; do
+    if [[ -d "$path" ]]; then
+        if [[ -z "$NEW_PATH" ]]; then
+            NEW_PATH="$path"
+        else
+            # Check for duplicates before adding
+            if [[ ":$NEW_PATH:" != *":$path:"* ]]; then
+                NEW_PATH="$NEW_PATH:$path"
+            fi
+        fi
+    fi
+done
+
+# Append original PATH at the end (for system paths)
+if [[ -n "$PATH" ]]; then
+    NEW_PATH="$NEW_PATH:$PATH"
+fi
+
+# Set final PATH
+export PATH="$NEW_PATH"
+
+# pnpm (managed separately - keeps its logic intact)
+export PNPM_HOME="$HOME/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+# ============================================================================
+# END UNIFIED PATH MANAGEMENT
+# ============================================================================
