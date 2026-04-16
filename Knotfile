@@ -13,59 +13,72 @@ packages:
     target: ~/.config/nvim
     ignore:
       - "README.md"
+    tags: [ide]
 
   tmux:
     target: ~/
+    tags: [terminal]
 
   starship:
     target: ~/.config
+    tags: [terminal]
 
   kitty:
     target: ~/.config/kitty
+    tags: [terminal]
 
   # Zsh configuration
   zsh:
     target: ~/
     ignore:
       - "README.md"
+    tags: [terminal]
 
   k9s:
     target: ~/.config/k9s
+    tags: [k8s]
 
   ghostty:
     target: ~/.config/ghostty
+    tags: [terminal]
 
-  zellij:
-    target: ~/.config/zellij
+  # zellij:
+  #   target: ~/.config/zellij
+  #   tags: [terminal]
 
   # linux-only: 
   sway:
     target: ~/.config/sway
+    tags: [sway]
     condition:
       os: linux
 
   swaync:
     target: ~/.config/swaync
+    tags: [sway]
     condition:
       os: linux
 
   waybar:
     target: ~/.config/waybar
+    tags: [sway]
     condition:
       os: linux
 
   wlogout:
     target: ~/.config/wlogout
+    tags: [sway]
     condition:
       os: linux
 
   wofi:
     target: ~/.config/wofi
+    tags: [sway]
     condition:
       os: linux
 
   # macOS-only: yabai window manager
-  yabai:
-    target: ~/.config/yabai
-    condition:
-      os: darwin                  # darwin | linux | windows | freebsd
+  # yabai:
+  #   target: ~/.config/yabai
+  #   condition:
+  #     os: darwin                  # darwin | linux | windows | freebsd
