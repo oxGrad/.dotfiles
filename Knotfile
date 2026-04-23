@@ -13,14 +13,14 @@ packages:
     target: ~/.config/nvim
     ignore:
       - "README.md"
-    tags: [ide]
+    tags: [code]
 
   tmux:
     target: ~/
     tags: [terminal]
 
   starship:
-    target: ~/.config
+    target: ~/.config/
     tags: [terminal]
 
   kitty:
@@ -36,7 +36,7 @@ packages:
 
   k9s:
     target: ~/.config/k9s
-    tags: [k8s]
+    tags: [kubernetes]
 
   ghostty:
     target: ~/.config/ghostty
