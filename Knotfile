@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/oxGrad/knot/main/schema/knotfile.schema.json
 # Knotfile — knot dotfiles manager configuration
 #
 # Each entry under `packages` defines a dotfile bundle to manage.
