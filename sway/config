@@ -25,8 +25,8 @@ set $menu wofi
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 # output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
-# output * bg ~/.dotfiles/assets/1363709.png fill
-output * bg ~/.dotfiles/assets/gargantua-black-5200x3250-9621.jpg fill
+output * bg ~/.dotfiles/assets/1363709.png fill
+# output * bg ~/.dotfiles/assets/gargantua-black-5200x3250-9621.jpg fill
 
 default_border pixel 0
 #
@@ -104,7 +104,7 @@ assign [class="Spotify"] workspace 6
     # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
     # Power menu
-    bindsym $mod+Shift+x exec wlogout
+    bindsym $mod+Shift+x exec wlogout --buttons-per-row 6
 #
 # Moving around:
 #

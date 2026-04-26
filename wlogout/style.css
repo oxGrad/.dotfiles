@@ -7,11 +7,12 @@
   /* font-variant-ligatures: none; */
   /* font-feature-settings: "liga" 0, "calt" 0; */
   font-family: "JetBrains Mono", "Font Awesome 6 Free", FontAwesome;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 window {
-  background-color: alpha(@base, 0.92);
+  /* background-color: alpha(@base, 0.6); */
+  background-color: transparent;
 }
 
 button {
@@ -19,24 +20,34 @@ button {
   background-color: @base;
   color: @subtext0;
   border: 0px solid transparent;
-  border-bottom: 2px solid @overlay0;
+  /* border-bottom: 2px solid @overlay0; */
   background-repeat: no-repeat;
-  background-position: center 35%;
+  background-position: center;
   background-size: 28%;
   margin: 8px;
-  padding-top: 140px;
+  min-width: 10px;
+  /* padding-top: 14px; */
   transition:
-    background-color 0.15s ease-in-out,
-    border-bottom-color 0.15s ease-in-out,
-    color 0.15s ease-in-out;
+    background-color 0.3s ease-in-out,
+    border-bottom-color 0.3s ease-in-out,
+    color 0.3s ease-in-out,
+    transform 0.3s ease-in-out;
 }
 
 button:hover,
 button:focus-visible {
-  background-color: @surface0;
+  background-color: alpha(@bonewhite, 0.3);
   color: @bonewhite;
-  border-bottom-color: @bonewhite;
+  /* border-bottom-color: @bonewhite; */
+  /* transform: scaleY(1.5); */
   outline-style: none;
+}
+
+button:hover {
+  background-size: 35%;
+  border-radius: 20px;
+  animation: blue 20s ease-in infinite;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.28, 1.682);
 }
 
 #lock {
