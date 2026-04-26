@@ -496,18 +496,38 @@ notificationwindow, blankwindow {
   color: var(--text-color);
 }
 
-/* WiFi toggle — green when on */
+/* WiFi (pos 1) / Power Saver (pos 1) — green */
 .widget-buttons-grid flowboxchild:nth-child(1) > button.toggle:checked {
   background-color: rgba(166, 226, 46, 0.15);
   color: var(--monokai-green);
   border-color: rgba(166, 226, 46, 0.3);
 }
 
-/* Bluetooth toggle — sky/teal when on */
+/* Bluetooth (pos 2) / Balanced (pos 2) — yellow */
+.widget-buttons-grid flowboxchild:nth-child(2) > button.toggle:checked {
+  background-color: rgba(226, 226, 46, 0.15);
+  color: var(--monokai-yellow);
+  border-color: rgba(226, 226, 46, 0.3);
+}
+
+/* Performance (pos 3) — flamingo; Networks (pos 3) is command-type, no effect */
 .widget-buttons-grid flowboxchild:nth-child(3) > button.toggle:checked {
-  background-color: rgba(102, 217, 239, 0.15);
-  color: var(--monokai-sky);
-  border-color: rgba(102, 217, 239, 0.3);
+  background-color: rgba(255, 151, 103, 0.15);
+  color: var(--monokai-flamingo);
+  border-color: rgba(255, 151, 103, 0.3);
+}
+
+/* Power Profile section label */
+.widget-label {
+  padding: 4px 8px 0;
+}
+
+.widget-label > label {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--text-color-disabled);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 /* Menubar widget */

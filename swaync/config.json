@@ -57,6 +57,8 @@
     "title",
     "dnd",
     "buttons-grid",
+    "label#power",
+    "buttons-grid#power",
     "notifications"
   ],
   "widget-config": {
@@ -90,30 +92,60 @@
       "buttons-per-row": 2,
       "actions": [
         {
-          "label": " WiFi",
+          "label": " WiFi",
           "type": "toggle",
           "active": true,
           "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi on || nmcli radio wifi off'",
           "update-command": "sh -c '[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'"
         },
         {
-          "label": " Networks",
-          "type": "command",
-          "command": "ghostty -e nmtui",
-          "tooltip": "Select Wi-Fi network"
-        },
-        {
-          "label": " Bluetooth",
+          "label": " Bluetooth",
           "type": "toggle",
           "active": false,
           "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && bluetoothctl power on || bluetoothctl power off'",
           "update-command": "sh -c 'bluetoothctl show | grep -q \"Powered: yes\" && echo true || echo false'"
         },
         {
-          "label": " Devices",
+          "label": " Networks",
+          "type": "command",
+          "command": "ghostty -e nmtui",
+          "tooltip": "Select Wi-Fi network"
+        },
+        {
+          "label": " Devices",
           "type": "command",
           "command": "blueman-manager",
           "tooltip": "Manage Bluetooth devices"
+        }
+      ]
+    },
+    "label#power": {
+      "max-lines": 1,
+      "text": "Power Profile"
+    },
+    "buttons-grid#power": {
+      "buttons-per-row": 3,
+      "actions": [
+        {
+          "label": " Saver",
+          "type": "toggle",
+          "active": false,
+          "command": "powerprofilesctl set power-saver",
+          "update-command": "sh -c '[ \"$(powerprofilesctl get)\" = \"power-saver\" ] && echo true || echo false'"
+        },
+        {
+          "label": " Balanced",
+          "type": "toggle",
+          "active": true,
+          "command": "powerprofilesctl set balanced",
+          "update-command": "sh -c '[ \"$(powerprofilesctl get)\" = \"balanced\" ] && echo true || echo false'"
+        },
+        {
+          "label": " Performance",
+          "type": "toggle",
+          "active": false,
+          "command": "powerprofilesctl set performance",
+          "update-command": "sh -c '[ \"$(powerprofilesctl get)\" = \"performance\" ] && echo true || echo false'"
         }
       ]
     }
