@@ -16,7 +16,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term kitty
+set $term ghostty
 # Your preferred application launcher
 # set $menu wmenu-run
 set $menu wofi
@@ -51,7 +51,7 @@ default_border pixel 0
 
 ### Workspaces assignment
 assign [app_id="app.zen_browser.zen"] workspace 1
-assign [app_id="kitty"] workspace 2
+assign [app_id="ghostty"] workspace 2
 assign [class="Slack"] workspace 5
 assign [class="Spotify"] workspace 6
 
@@ -79,7 +79,7 @@ assign [class="Spotify"] workspace 6
 # Basics:
 #
     # Start a terminal
-    bindsym $mod+Return exec ~/.config/sway/scripts/kitty-ws2.sh
+    bindsym $mod+Return exec ~/.config/sway/scripts/ghostty-ws2.sh
 
     # Kill focused window
     bindsym $mod+Shift+q kill
