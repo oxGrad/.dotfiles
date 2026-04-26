@@ -18,7 +18,7 @@ alias bi="brew install"
 
 # buildah
 alias bud="buildah bud"
-alias brun="buildah run "$ctr" --"
+brun() { buildah run "$ctr" -- "$@"; }
 
 # dnf
 alias sdu="sudo dnf update"
@@ -30,8 +30,7 @@ alias sdiy="sudo dnf install -y"
 # general config
 # alias cat="bat"
 alias nvd="cd ~/.dotfiles && nvim ."
-alias nvs="nv ~/.ssh/config"
-alias vd="cd ~/.dotfiles && nvim ."
+alias nvs="nvim ~/.ssh/config"
 alias vsc="nvim ~/.ssh/config"
 alias vkh="nvim ~/.ssh/known_hosts"
 alias vhost="sudo nvim /etc/hosts"
@@ -45,9 +44,13 @@ alias gcm="git commit -m"
 alias gp="git push -u origin"
 alias gpm="git push -u origin main"
 alias gfa="git fetch --all"
+alias gd="git diff"
+alias gl="git log --oneline --graph --decorate"
+alias gb="git branch"
+alias gst="git stash"
 
 # finder
-alias fp="fzf --preview "bat --color=always --style=numbers --line-range=:500 {}""
+alias fp="fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'"
 
 # zsh config
 alias vz="nvim ~/.dotfiles/zsh/.zshrc"
@@ -145,3 +148,12 @@ alias tbr="trunk build --release"
 # nvim
 alias v="nvim"
 alias v.="nvim ."
+
+# macOS
+if [[ "$(uname)" == "Darwin" ]]; then
+    alias ls="ls -G"
+    alias la="ls -laG"
+    alias ll="ls -lG"
+    alias o="open"
+    alias oo="open ."
+fi

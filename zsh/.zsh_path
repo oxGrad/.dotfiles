@@ -50,6 +50,7 @@ elif [[ "$(uname)" == "Darwin" ]]; then
 fi
 
 # Android development paths (conditional)
+export ANDROID_HOME="$HOME/android"
 declare -a ANDROID_PATHS=()
 if [[ -n "$ANDROID_HOME" ]]; then
     ANDROID_PATHS=(
