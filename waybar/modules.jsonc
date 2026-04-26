@@ -44,19 +44,12 @@
     "interval": 1
   },
   "network": {
-    // "interface": "wlp2s0", // (Optional) To force the use of this interface
-    "format": "⚠  Disabled",
-    // "format-wifi": "  {essid}",
-    "format-wifi": "  {signalStrength}%",
-    // "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
+    "format": "⚠ Offline",
+    "format-wifi": "  {essid}",
     "format-ethernet": "  Wired",
-    "format-disconnected": "⚠  Disconnected",
-    "tooltip-format": " {ifname} via {gwaddri}",
-    "tooltip-format-wifi": "   {essid} ({signalStrength}%)",
-    "tooltip-format-ethernet": "  {ifname} ({ipaddr}/{cidr})",
-    "tooltip-format-disconnected": "⚠  Disconnected",
-    // "on-click": "ghostty -e nmtui"
-    "on-click": "nm-connection-editor"
+    "format-disconnected": "  Disconnected",
+    "tooltip-format-wifi": "{essid} · {signalStrength}% · {gwaddr}",
+    "tooltip-format-ethernet": "{ifname} · {ipaddr}/{cidr}"
   },
   "pulseaudio": {
     // "scroll-step": 5,

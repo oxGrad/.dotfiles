@@ -1,16 +1,28 @@
 :root {
-  --cc-bg: rgba(46, 46, 46, 0.7);
-  --noti-border-color: rgba(255, 255, 255, 0.15);
-  --noti-bg: 48, 48, 48;
-  --noti-bg-alpha: 0.8;
-  --noti-bg-darker: rgb(38, 38, 38);
-  --noti-bg-hover: rgb(56, 56, 56);
-  --noti-bg-focus: rgba(68, 68, 68, 0.6);
-  --noti-close-bg: rgb(78, 78, 78);
-  --noti-close-bg-hover: rgb(94, 94, 94);
-  --text-color: rgb(255, 255, 255);
-  --text-color-disabled: rgb(150, 150, 150);
-  --bg-selected: rgb(0, 128, 255);
+  /* Monokai palette (mirrors waybar colors.css) */
+  --monokai-base:    #272822;
+  --monokai-mantle:  #1e1f1c;
+  --monokai-surface: #3e3d32;
+  --monokai-text:    #f8f8f2;
+  --monokai-green:   #a6e22e;
+  --monokai-mauve:   #ae81ff;
+  --monokai-sky:     #66d9ef;
+  --monokai-flamingo:#ff9767;
+  --monokai-red:     #f92672;
+  --monokai-yellow:  #e2e22e;
+
+  --cc-bg: rgba(39, 40, 34, 0.92);
+  --noti-border-color: rgba(255, 255, 255, 0.08);
+  --noti-bg: 46, 46, 40;
+  --noti-bg-alpha: 0.9;
+  --noti-bg-darker: rgb(30, 31, 28);
+  --noti-bg-hover: rgb(62, 61, 50);
+  --noti-bg-focus: rgba(62, 61, 50, 0.6);
+  --noti-close-bg: rgba(255, 255, 255, 0.08);
+  --noti-close-bg-hover: rgba(255, 255, 255, 0.14);
+  --text-color: #f8f8f2;
+  --text-color-disabled: #75715e;
+  --bg-selected: #a6e22e;
   --notification-icon-size: 64px;
   --notification-app-icon-size: calc(var(--notification-icon-size) / 3);
   --notification-group-icon-size: 32px;
@@ -28,20 +40,19 @@
 }
 
 /* Fallback for older CSS themes */
-/* Fallback for older CSS themes */
-@define-color cc-bg rgba(46, 46, 46, 0.7);
-@define-color noti-border-color rgba(255, 255, 255, 0.15);
-@define-color noti-bg rgba(48, 48, 48, 0.8);
-@define-color noti-bg-opaque rgb(48, 48, 48);
-@define-color noti-bg-darker rgb(38, 38, 38);
-@define-color noti-bg-hover rgb(56, 56, 56);
-@define-color noti-bg-hover-opaque rgb(56, 56, 56);
-@define-color noti-bg-focus rgba(68, 68, 68, 0.6);
-@define-color noti-close-bg rgba(255, 255, 255, 0.1);
-@define-color noti-close-bg-hover rgba(255, 255, 255, 0.15);
-@define-color text-color rgb(255, 255, 255);
-@define-color text-color-disabled rgb(150, 150, 150);
-@define-color bg-selected rgb(0, 128, 255);
+@define-color cc-bg rgba(39, 40, 34, 0.92);
+@define-color noti-border-color rgba(255, 255, 255, 0.08);
+@define-color noti-bg rgba(46, 46, 40, 0.9);
+@define-color noti-bg-opaque rgb(46, 46, 40);
+@define-color noti-bg-darker rgb(30, 31, 28);
+@define-color noti-bg-hover rgb(62, 61, 50);
+@define-color noti-bg-hover-opaque rgb(62, 61, 50);
+@define-color noti-bg-focus rgba(62, 61, 50, 0.6);
+@define-color noti-close-bg rgba(255, 255, 255, 0.08);
+@define-color noti-close-bg-hover rgba(255, 255, 255, 0.14);
+@define-color text-color #f8f8f2;
+@define-color text-color-disabled #75715e;
+@define-color bg-selected #a6e22e;
 notificationwindow, blankwindow {
   background: transparent;
 }
@@ -465,12 +476,38 @@ notificationwindow, blankwindow {
 }
 
 /* Buttons widget */
-.widget-buttons-grid flowboxchild > button {
-  border-radius: var(--border-radius);
+.widget-buttons-grid {
+  padding: 4px 0;
 }
 
-.widget-buttons-grid flowboxchild > button.toggle:checked {
-  /* style given to the active toggle button */
+.widget-buttons-grid flowboxchild > button {
+  font-family: "JetBrains Mono", "Font Awesome 6 Free", FontAwesome, sans-serif;
+  font-size: 0.95rem;
+  border-radius: var(--border-radius);
+  background-color: var(--monokai-surface);
+  color: var(--text-color-disabled);
+  border: 1px solid transparent;
+  padding: 8px 12px;
+  transition: background 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.widget-buttons-grid flowboxchild > button:hover {
+  background-color: var(--noti-bg-hover);
+  color: var(--text-color);
+}
+
+/* WiFi toggle — green when on */
+.widget-buttons-grid flowboxchild:nth-child(1) > button.toggle:checked {
+  background-color: rgba(166, 226, 46, 0.15);
+  color: var(--monokai-green);
+  border-color: rgba(166, 226, 46, 0.3);
+}
+
+/* Bluetooth toggle — sky/teal when on */
+.widget-buttons-grid flowboxchild:nth-child(3) > button.toggle:checked {
+  background-color: rgba(102, 217, 239, 0.15);
+  color: var(--monokai-sky);
+  border-color: rgba(102, 217, 239, 0.3);
 }
 
 /* Menubar widget */
