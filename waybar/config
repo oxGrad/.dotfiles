@@ -1,8 +1,8 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 30,
-  "margin": "0 0 0 0",
+  "height": 32,
+  "margin": "5 5 0 5",
   "modules-left": [
     // "custom/launcher",
     "sway/workspaces",
@@ -21,13 +21,13 @@
   ],
   "modules-right": [
     // "custom/keyboard-layout",
-    // "group/hardware",
+    "group/hardware",
+    "idle_inhibitor",
     "backlight",
     "battery",
     "pulseaudio",
-    "network"
-    // "idle_inhibitor",
-    // "custom/power"
+    "network",
+    "custom/power"
   ],
 
   // Load modules
