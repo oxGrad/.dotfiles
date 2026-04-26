@@ -56,6 +56,7 @@
     "inhibitors",
     "title",
     "dnd",
+    "buttons-grid",
     "notifications"
   ],
   "widget-config": {
@@ -86,14 +87,35 @@
       "loop-carousel": false
     },
     "buttons-grid": {
-      "buttons-per-row": 7,
+      "buttons-per-row": 4,
       "actions": [
         {
-          "label": "直",
+          "label": "直",
           "type": "toggle",
           "active": true,
           "command": "sh -c '[[ $SWAYNC_TOGGLE_STATE == true ]] && nmcli radio wifi on || nmcli radio wifi off'",
           "update-command": "sh -c '[[ $(nmcli radio wifi) == \"enabled\" ]] && echo true || echo false'"
+        },
+        {
+          "label": " Eco",
+          "type": "toggle",
+          "active": false,
+          "command": "busctl set-property net.hadess.PowerProfiles /net/hadess/PowerProfiles net.hadess.PowerProfiles ActiveProfile s \"power-saver\" && swaync-client --close-panel && sleep 0.15 && swaync-client --open-panel",
+          "update-command": "sh -c 'busctl get-property net.hadess.PowerProfiles /net/hadess/PowerProfiles net.hadess.PowerProfiles ActiveProfile 2>/dev/null | grep -q '\"'power-saver'\"' && echo true || echo false'"
+        },
+        {
+          "label": " Bal",
+          "type": "toggle",
+          "active": false,
+          "command": "busctl set-property net.hadess.PowerProfiles /net/hadess/PowerProfiles net.hadess.PowerProfiles ActiveProfile s \"balanced\" && swaync-client --close-panel && sleep 0.15 && swaync-client --open-panel",
+          "update-command": "sh -c 'busctl get-property net.hadess.PowerProfiles /net/hadess/PowerProfiles net.hadess.PowerProfiles ActiveProfile 2>/dev/null | grep -q '\"'balanced'\"' && echo true || echo false'"
+        },
+        {
+          "label": " Perf",
+          "type": "toggle",
+          "active": false,
+          "command": "busctl set-property net.hadess.PowerProfiles /net/hadess/PowerProfiles net.hadess.PowerProfiles ActiveProfile s \"performance\" && swaync-client --close-panel && sleep 0.15 && swaync-client --open-panel",
+          "update-command": "sh -c 'busctl get-property net.hadess.PowerProfiles /net/hadess/PowerProfiles net.hadess.PowerProfiles ActiveProfile 2>/dev/null | grep -q '\"'performance'\"' && echo true || echo false'"
         }
       ]
     }

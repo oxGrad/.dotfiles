@@ -19,7 +19,7 @@
 /* Reset all styles */
 
 * {
-  color: @green;
+  color: @bonewhite;
   border: 0;
   padding: 0 0;
   font-family:
@@ -177,11 +177,10 @@ window#waybar.empty #window {
 }
 
 #clock {
-  /* background-color: #a3be8c; */
-  color: @green;
+  color: @bonewhite;
   border-radius: 10px;
-  border-bottom: 2px solid @green;
-  padding: 0 40px;
+  border-bottom: 2px solid @bonewhite;
+  padding: 0 10px;
   margin: 8px 10px;
 }
 
@@ -262,8 +261,8 @@ window#waybar.empty #window {
 }
 
 #network {
-  color: @green;
-  border-bottom: 2px solid @green;
+  color: @bonewhite;
+  border-bottom: 2px solid @bonewhite;
   border-radius: 10px;
   margin-right: 5px;
 }
@@ -274,8 +273,8 @@ window#waybar.empty #window {
 }
 
 #pulseaudio {
-  color: @flamingo;
-  border-bottom: 2px solid @flamingo;
+  color: @bonewhite;
+  border-bottom: 2px solid @bonewhite;
   border-radius: 10px;
   margin-right: 5px;
 }

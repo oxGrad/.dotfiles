@@ -1,33 +1,39 @@
+@import "../waybar/colors.css";
+
 * {
   background-image: none;
   box-shadow: none;
   font-family:
-    "Fira Sans Semibold", "Font Awesome 6 Free", FontAwesome, Roboto, Helvetica,
-    Arial, sans-serif;
+    "JetBrains Mono", "Fira Sans Semibold", "Font Awesome 6 Free", FontAwesome,
+    Roboto, Helvetica, Arial, sans-serif;
 }
 
 window {
-  background-color: rgba(39, 40, 34, 0.95);
+  background-color: alpha(@base, 0.95);
 }
 
 button {
   border-radius: 10px;
-  border-color: #3e3d32;
-  text-decoration-color: #f8f8f2;
-  color: #f8f8f2;
-  background-color: #414339;
+  border-color: @surface0;
+  text-decoration-color: @text;
+  color: @text;
+  background-color: @surface0;
   border-style: solid;
   border-width: 1px;
+  border-bottom-width: 2px;
+  border-bottom-color: @overlay0;
   background-repeat: no-repeat;
   background-position: center;
   background-size: 25%;
+  transition: background-color 0.15s ease-in-out, border-bottom-color 0.15s ease-in-out;
 }
 
 button:focus,
 button:active,
 button:hover {
-  background-color: #ae81ff;
-  color: #272822;
+  background-color: @base;
+  border-bottom-color: @mauve;
+  color: @mauve;
   outline-style: none;
 }
 
@@ -64,6 +70,15 @@ button:hover {
     url("/usr/share/wlogout/icons/shutdown.png"),
     url("/usr/local/share/wlogout/icons/shutdown.png")
   );
+  border-bottom-color: @red;
+}
+
+#shutdown:focus,
+#shutdown:active,
+#shutdown:hover {
+  border-bottom-color: @red;
+  background-color: alpha(@red, 0.15);
+  color: @red;
 }
 
 #reboot {

@@ -7,8 +7,6 @@
     // "custom/launcher",
     "sway/workspaces",
     "custom/swap",
-    "tray",
-    "sway/window",
     "sway/mode",
     "custom/cava-internal",
     "mpd#2",
@@ -17,15 +15,17 @@
     "mpd"
   ],
   "modules-center": [
-    "clock"
+    "sway/window"
   ],
   "modules-right": [
     // "custom/keyboard-layout",
     // "group/hardware",
+    "tray",
     "backlight",
     "battery",
     "pulseaudio",
-    "network"
+    "network",
+    "clock"
     // "idle_inhibitor",
     // "custom/power"
   ],
