@@ -56,7 +56,7 @@ window#waybar {
 }
 
 #workspaces * {
-  color: whitesmoke;
+  color: @bonewhite;
 }
 
 #workspaces {
@@ -69,14 +69,15 @@ window#waybar {
 }
 
 #workspaces button.focused {
-  color: @green;
+  /* color: @green; */
   border-radius: 0px;
-  /* border-bottom: 2px solid @sky; */
+  /* border-bottom: 2px solid @bonewhite; */
   /* background-color: @flamingo; */
 }
 
 #workspaces button.focused * {
-  color: @green;
+  /* color: @green; */
+  border-bottom: 2px solid @bonewhite;
 }
 
 #mode {
