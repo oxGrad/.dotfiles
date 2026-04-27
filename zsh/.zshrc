@@ -33,6 +33,11 @@ plugins=(git tmux colorize podman)
 
 source $ZSH/oh-my-zsh.sh
 
+# edit command buffer in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
 # starship
 eval "$(starship init zsh)"
 
