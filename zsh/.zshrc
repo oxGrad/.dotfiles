@@ -3,6 +3,7 @@ export ZSH="$HOME/.oh-my-zsh"
 
 # environment / PATH
 [[ -f ~/.zsh_path ]] && source ~/.zsh_path
+[[ -f ~/.zsh_functions ]] && source ~/.zsh_functions
 
 
 export EDITOR=nvim

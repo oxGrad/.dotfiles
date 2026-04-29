@@ -1,0 +1,22 @@
+# nvim — rename tmux window to project name when opening a dir/file
+nvim() {
+  local project_name=""
+
+  if [[ -n "$TMUX" ]]; then
+    for arg in "$@"; do
+      [[ "$arg" == -* ]] && continue
+      if [[ -d "$arg" ]]; then
+        project_name=$(basename "$(realpath "$arg")")
+      else
+        project_name=$(basename "$(dirname "$(realpath "$arg")")")
+      fi
+      break
+    done
+
+    [[ -n "$project_name" ]] && tmux rename-window "$project_name"
+    command nvim "$@"
+    tmux set-window-option automatic-rename on
+  else
+    command nvim "$@"
+  fi
+}
