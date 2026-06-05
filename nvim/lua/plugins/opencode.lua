@@ -1,3 +1,7 @@
+-- disabled
+if true then
+  return {}
+end
 return {
   "nickjvandyke/opencode.nvim",
   dependencies = {
