@@ -18,6 +18,7 @@ declare -a LANGUAGE_TOOLS_PATHS=(
     "$HOME/.krew/bin"               # Kubernetes krew
     "$HOME/.rd/bin"                 # Rancher Desktop (managed)
     "$HOME/.rvm/bin"                # Ruby Version Manager
+    "$HOME/.bun/bin"                # Bun development tools
 
 )
 

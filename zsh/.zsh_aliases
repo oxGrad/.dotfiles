@@ -84,9 +84,10 @@ alias vdf="vagrant destroy -f"
 alias vgs="vagrant global-status"
 
 # podman
-alias pd="podman"
+alias pod="podman"
 alias pr="podman run --rm"
 alias pc="podman compose"
+alias pcu="podman compose up"
 alias pcud="podman compose up -d"
 alias pcd="podman compose down"
 

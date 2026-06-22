@@ -12,6 +12,7 @@ if [[ "$(uname)" == "Linux" ]]; then
 fi
 
 export VAGRANT_DEFAULT_PROVIDER=virtualbox
+export DOCKER_HOST=unix:///run/user/1000/podman/podman.sock
 # export VAGRANT_DEFAULT_PROVIDER=libvirt
 # export DOCKER_HOST=unix:///var/run/docker.sock
 
@@ -56,3 +57,7 @@ if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc
 
 # User aliases
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
+
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
