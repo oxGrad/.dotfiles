@@ -58,6 +58,23 @@
     // "on-click": "ghostty -e nmtui"
     "on-click": "nm-connection-editor"
   },
+  "backlight": {
+    "format": "{icon} {percent: >3}%",
+    "format-icons": ["󰃛", "󰃞", "󰃠"],
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-",
+    "tooltip": false
+  },
+  "battery": {
+    "states": {
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity: >3}%",
+    "format-charging": " {capacity: >3}%",
+    "format-plugged": " {capacity: >3}%",
+    "format-icons": ["", "", "", "", ""]
+  },
   "pulseaudio": {
     // "scroll-step": 5,
     "format": "{icon} {volume: >3}%",
