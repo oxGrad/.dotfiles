@@ -56,7 +56,8 @@
     "tooltip-format-ethernet": "  {ifname} ({ipaddr}/{cidr})",
     "tooltip-format-disconnected": "⚠  Disconnected",
     // "on-click": "ghostty -e nmtui"
-    "on-click": "nm-connection-editor"
+    // "on-click": "nm-connection-editor",
+    "on-click": "~/.config/waybar/scripts/wifi-menu.sh"
   },
   "backlight": {
     "format": "{icon} {percent: >3}%",

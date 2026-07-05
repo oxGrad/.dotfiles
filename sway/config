@@ -90,6 +90,9 @@ assign [class="Spotify"] workspace 6
     # Toggle notification control center "https://github.com/ErikReider/SwayNotificationCenter?tab=readme-ov-file#other"
     bindsym $mod+Shift+n exec swaync-client -t -sw
 
+    # Wifi picker
+    bindsym $mod+n exec ~/.config/waybar/scripts/wifi-menu.sh
+
     # Drag floating windows by holding down $mod and left mouse button.
     # Resize them with right mouse button + $mod.
     # Despite the name, also works for non-floating windows.
