@@ -25,11 +25,11 @@
       "on-scroll": 1,
       "on-click-right": "mode",
       "format": {
-        "months": "<span color='#bb9af7'><b>{}</b></span>", // Purple
-        "days": "<span color='#7aa2f7'><b>{}</b></span>", // Blue
-        "weeks": "<span color='#9ece6a'><b>W{}</b></span>", // Green
-        "weekdays": "<span color='#e0af68'><b>{}</b></span>", // Yellow
-        "today": "<span background='#2ac3de' color='#1a1b26'><b><u>{}</u></b></span>" // Cyan background with dark text
+        "months": "<span color='#ae81ff'><b>{}</b></span>", // Monokai mauve
+        "days": "<span color='#66d9ef'><b>{}</b></span>", // Monokai sky
+        "weeks": "<span color='#a6e22e'><b>W{}</b></span>", // Monokai green
+        "weekdays": "<span color='#ffd56c'><b>{}</b></span>", // Monokai peach
+        "today": "<span background='#f92672' color='#272822'><b><u>{}</u></b></span>" // Monokai pink with dark text
       }
     },
     "actions": {

@@ -1,8 +1,9 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 30,
-  "margin": "0 0 0 0",
+  "height": 26,
+  "margin": "4 8 0 8",
+  "spacing": 0,
   "modules-left": [
     // "custom/launcher",
     "sway/workspaces",
@@ -22,9 +23,9 @@
     // "group/hardware",
     "tray",
     "backlight",
-    "battery",
     "pulseaudio",
     "network",
+    "battery",
     "clock"
     // "idle_inhibitor",
     // "custom/power"
