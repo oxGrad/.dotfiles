@@ -39,6 +39,19 @@ Each directory maps to a tool's config and is symlinked by knot:
 | `waybar/`   | `~/.config/waybar`  | status bar for sway                   |
 | `swaync/`   | `~/.config/swaync`  | notification center                   |
 
+## Theme & Design System
+
+Everything is themed **Monokai** (dark base `#272822`, text `bonewhite #faf9f6`):
+
+- `waybar/colors.css` — canonical palette. Monokai hex values under Catppuccin-style names (`base`, `surface0-2`, `overlay0-2`, plus accents like `green #a6e22e`, `pink/red #f92672`, `sky #66d9ef`, `mauve #ae81ff`, `yellow #e2e22e`). Change colors here, not in `style.css`.
+- `waybar/style.css` — "floating islands" bar: transparent window, rounded pill modules on `alpha(@base, 0.92)`. Design rule: **neutral `bonewhite` text everywhere; accent color only signals state** (charging, warning, critical, muted, disconnected).
+- `starship/starship.toml` — capsule/powerline prompt built to visually match waybar; palette duplicated in `[palettes.monokai]` (keep in sync with `waybar/colors.css`).
+- `swaync/style.css` — imports `waybar/colors.css`; control center follows the same island style (13px radius, `alpha(@base, 0.92)`, neutral text, color = state).
+- `nvim/lua/plugins/monokai.lua` — `monokai-pro.nvim` with transparent background.
+- `tmux/.tmux.conf` — `tmux-monokai-pro` plugin.
+
+Font is JetBrains Mono / JetBrainsMono Nerd Font across terminals, waybar, and prompt.
+
 ## Zsh Config Split
 
 The zsh config is split across three files that source each other in order:
