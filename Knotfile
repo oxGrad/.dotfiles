@@ -73,6 +73,12 @@ packages:
     condition:
       os: linux
 
+  flameshot:
+    target: ~/.config/flameshot
+    tags: [sway, utilities]
+    condition:
+      os: linux
+
   # macOS-only: yabai window manager
   # yabai:
   #   target: ~/.config/yabai
