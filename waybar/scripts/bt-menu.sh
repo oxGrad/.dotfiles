@@ -42,6 +42,9 @@ case "$choice" in
   "󰂲  Turn bluetooth off")
     bluetoothctl power off >/dev/null && notify "Bluetooth disabled" ;;
   "󰂯  Turn bluetooth on")
+    # rfkill block removes the adapter entirely; unblock first or
+    # `power on` has no controller and fails silently
+    rfkill unblock bluetooth
     bluetoothctl power on >/dev/null && notify "Bluetooth enabled"
     sleep 1
     exec "$0" ;;
