@@ -1,23 +1,23 @@
 @import "../waybar/colors.css";
 
 /* swaync-specific color aliases */
-@define-color cc-bg              alpha(@base, 0.95);
+@define-color cc-bg              alpha(@base, 0.92);
 @define-color noti-border-color  alpha(@surface0, 0.8);
 @define-color noti-bg-opaque     @surface0;
 @define-color noti-bg-hover      @surface2;
 @define-color noti-bg-darker     @mantle;
 @define-color noti-bg-focus      alpha(@surface0, 0.6);
 @define-color noti-close-bg      alpha(@surface1, 0.9);
-@define-color noti-close-bg-hover alpha(@mauve, 0.3);
+@define-color noti-close-bg-hover @surface2;
 @define-color text-color         @text;
 @define-color text-color-disabled @overlay0;
-@define-color bg-selected        @mauve;
+@define-color bg-selected        @surface2;
 
 :root {
   --notification-icon-size: 64px;
   --notification-app-icon-size: calc(var(--notification-icon-size) / 3);
   --notification-group-icon-size: 32px;
-  --border-radius: 10px;
+  --border-radius: 13px;
   --notification-shadow: 0 0 0 1px rgba(0, 0, 0, 0.4),
     0 1px 3px 1px rgba(0, 0, 0, 0.7), 0 2px 6px 2px rgba(0, 0, 0, 0.3);
   --font-size-body: 14px;
@@ -27,8 +27,8 @@
 }
 
 * {
-  font-family: "JetBrains Mono", "Fira Sans Semibold", "Font Awesome 6 Free",
-    FontAwesome, Roboto, Helvetica, Arial, sans-serif;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", "Fira Sans Semibold",
+    "Font Awesome 6 Free", FontAwesome, Roboto, Helvetica, Arial, sans-serif;
 }
 
 notificationwindow, blankwindow {
@@ -52,7 +52,7 @@ notificationwindow, blankwindow {
 .close-button:hover {
   box-shadow: none;
   background: @noti-close-bg-hover;
-  color: @mauve;
+  color: @bonewhite;
   transition: var(--hover-transition);
   border: none;
 }
@@ -67,13 +67,12 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background {
-  padding: 6px 12px;
+  padding: 8px 12px;
 }
 
 .notification-row .notification-background .notification {
   border-radius: var(--border-radius);
   border: 1px solid @noti-border-color;
-  border-bottom: 2px solid @mauve;
   padding: 0;
   transition: var(--hover-transition);
   background: alpha(@noti-bg-opaque, 0.9);
@@ -84,7 +83,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-row .notification-background .notification .notification-default-action {
-  padding: 4px;
+  padding: 8px;
   margin: 0;
   box-shadow: none;
   background: transparent;
@@ -132,7 +131,7 @@ notificationwindow, blankwindow {
   font-size: var(--font-size-summary);
   font-weight: bold;
   background: transparent;
-  color: @green;
+  color: @bonewhite;
   text-shadow: none;
 }
 
@@ -170,7 +169,7 @@ notificationwindow, blankwindow {
 .notification-row .notification-background .notification .notification-default-action .notification-content .inline-reply .inline-reply-entry {
   background: @noti-bg-darker;
   color: @text-color;
-  caret-color: @mauve;
+  caret-color: @bonewhite;
   border: 1px solid @noti-border-color;
   border-radius: var(--border-radius);
 }
@@ -191,7 +190,7 @@ notificationwindow, blankwindow {
 
 .notification-row .notification-background .notification .notification-default-action .notification-content .inline-reply .inline-reply-button:hover {
   background: @noti-bg-hover;
-  color: @mauve;
+  color: @bonewhite;
 }
 
 .notification-row .notification-background .notification .notification-alt-actions {
@@ -215,7 +214,7 @@ notificationwindow, blankwindow {
 
 .notification-row .notification-background .notification .notification-action > button:hover {
   background: @noti-bg-hover;
-  color: @mauve;
+  color: @bonewhite;
 }
 
 .notification-group {
@@ -237,7 +236,7 @@ notificationwindow, blankwindow {
 }
 
 .notification-group .notification-group-headers .notification-group-icon {
-  color: @mauve;
+  color: @subtext0;
   -gtk-icon-size: var(--notification-group-icon-size);
 }
 
@@ -314,7 +313,7 @@ notificationwindow, blankwindow {
 .widget-title > label {
   margin-right: 8px;
   font-size: 1.5rem;
-  color: @green;
+  color: @bonewhite;
   font-weight: bold;
 }
 
@@ -327,8 +326,8 @@ notificationwindow, blankwindow {
 }
 
 .widget-title > button:hover {
-  background: @mauve;
-  color: @base;
+  background: @surface2;
+  color: @bonewhite;
 }
 
 .widget-dnd label {
@@ -345,12 +344,12 @@ notificationwindow, blankwindow {
 }
 
 .widget-dnd switch:checked {
-  background: @mauve;
+  background: @pink;
 }
 
 .widget-dnd switch slider {
   border-radius: var(--border-radius);
-  background: @rosewater;
+  background: @bonewhite;
 }
 
 .widget-label > label {
@@ -373,7 +372,7 @@ notificationwindow, blankwindow {
   margin: 16px 20px;
   border-radius: var(--border-radius);
   box-shadow: var(--mpris-album-art-shadow);
-  border-bottom: 2px solid @mauve;
+  border-bottom: 2px solid @noti-border-color;
 }
 
 .widget-mpris .widget-mpris-player .mpris-background {
@@ -387,7 +386,7 @@ notificationwindow, blankwindow {
 
 .widget-mpris .widget-mpris-player .mpris-overlay button:hover {
   background: @noti-bg-hover;
-  color: @mauve;
+  color: @bonewhite;
 }
 
 .widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-album-art {
@@ -399,7 +398,7 @@ notificationwindow, blankwindow {
 .widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title {
   font-weight: bold;
   font-size: 1.25rem;
-  color: @green;
+  color: @bonewhite;
 }
 
 .widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle {
@@ -420,29 +419,44 @@ notificationwindow, blankwindow {
 
 .widget-buttons-grid flowboxchild > button:hover {
   background: @noti-bg-hover;
-  color: @mauve;
+  color: @bonewhite;
 }
 
+/* Default active toggle: green state (wifi, bluetooth) */
 .widget-buttons-grid flowboxchild > button.toggle:checked {
-  background: @mauve;
-  color: @base;
-  border-bottom: 2px solid @green;
-}
-
-/* Power profile active states */
-.widget-buttons-grid flowboxchild:nth-child(2) > button.toggle:checked {
   background: alpha(@green, 0.15);
   color: @green;
   border-bottom: 2px solid @green;
 }
 
+/* Night light active: warm peach */
 .widget-buttons-grid flowboxchild:nth-child(3) > button.toggle:checked {
+  background: alpha(@peach, 0.15);
+  color: @peach;
+  border-bottom: 2px solid @peach;
+}
+
+/* Mic muted: red warning */
+.widget-buttons-grid flowboxchild:nth-child(4) > button.toggle:checked {
+  background: alpha(@red, 0.15);
+  color: @red;
+  border-bottom: 2px solid @red;
+}
+
+/* Power profile active states: eco green / bal sky / perf red */
+.widget-buttons-grid flowboxchild:nth-child(5) > button.toggle:checked {
+  background: alpha(@green, 0.15);
+  color: @green;
+  border-bottom: 2px solid @green;
+}
+
+.widget-buttons-grid flowboxchild:nth-child(6) > button.toggle:checked {
   background: alpha(@sky, 0.15);
   color: @sky;
   border-bottom: 2px solid @sky;
 }
 
-.widget-buttons-grid flowboxchild:nth-child(4) > button.toggle:checked {
+.widget-buttons-grid flowboxchild:nth-child(7) > button.toggle:checked {
   background: alpha(@red, 0.15);
   color: @red;
   border-bottom: 2px solid @red;
@@ -466,7 +480,14 @@ notificationwindow, blankwindow {
 
 .widget-menubar > .menu-button-bar > .widget-menubar-container button:hover {
   background: @noti-bg-hover;
-  color: @mauve;
+  color: @bonewhite;
+}
+
+/* DND toggle in menubar: pink when on (state color) */
+.widget-menubar > .menu-button-bar > .widget-menubar-container button.toggle:checked {
+  background: alpha(@pink, 0.15);
+  color: @pink;
+  border-bottom: 2px solid @pink;
 }
 
 .widget-menubar > revealer * {
@@ -506,7 +527,7 @@ notificationwindow, blankwindow {
 .widget-inhibitors > label {
   margin-right: 8px;
   font-size: 1.5rem;
-  color: @yellow;
+  color: @bonewhite;
 }
 
 .widget-inhibitors > button {
@@ -518,6 +539,6 @@ notificationwindow, blankwindow {
 }
 
 .widget-inhibitors > button:hover {
-  background: @mauve;
-  color: @base;
+  background: @surface2;
+  color: @bonewhite;
 }
