@@ -190,6 +190,10 @@ window#waybar.empty #window {
   color: @pink;
 }
 
+#bluetooth {
+  font-size: 15px;
+}
+
 #bluetooth.disabled,
 #bluetooth.off {
   color: @overlay0;
