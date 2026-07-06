@@ -1,66 +1,74 @@
 @import "../waybar/colors.css";
 
+/* Monokai floating islands. Buttons are ordered by consequence:
+ * lock → suspend → hibernate → logout → reboot → shutdown.
+ * Hover color encodes severity: neutral (returns instantly),
+ * peach (ends the session), pink (powers off). */
+
 * {
   background-image: none;
   box-shadow: none;
   text-shadow: none;
-  /* font-variant-ligatures: none; */
-  /* font-feature-settings: "liga" 0, "calt" 0; */
-  font-family: "JetBrains Mono", "Font Awesome 6 Free", FontAwesome;
-  font-size: 12px;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 14px;
 }
 
 window {
-  /* background-color: alpha(@base, 0.6); */
-  background-color: transparent;
+  background-color: alpha(@mantle, 0.5);
 }
 
 button {
-  border-radius: 10px;
-  background-color: @base;
+  border-radius: 13px;
+  background-color: alpha(@base, 0.92);
   color: @subtext0;
-  border: 0px solid transparent;
-  /* border-bottom: 2px solid @overlay0; */
+  border: none;
+  border-bottom: 2px solid transparent;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 28%;
+  background-size: 25%;
   margin: 8px;
   min-width: 10px;
-  /* padding-top: 14px; */
   transition:
-    background-color 0.3s ease-in-out,
-    border-bottom-color 0.3s ease-in-out,
-    color 0.3s ease-in-out,
-    transform 0.3s ease-in-out;
+    background-color 0.2s ease-in-out,
+    border-bottom-color 0.2s ease-in-out,
+    color 0.2s ease-in-out;
 }
 
+button:focus-visible {
+  outline: none;
+}
+
+/* benign: lock, suspend, hibernate — neutral hover */
 button:hover,
 button:focus-visible {
-  background-color: alpha(@bonewhite, 0.3);
+  background-color: @surface2;
   color: @bonewhite;
-  /* border-bottom-color: @bonewhite; */
-  /* transform: scaleY(1.5); */
-  outline-style: none;
+  border-bottom-color: @bonewhite;
+  background-size: 28%;
 }
 
-button:hover {
-  background-size: 35%;
-  border-radius: 20px;
-  animation: blue 20s ease-in infinite;
-  transition: all 0.3s cubic-bezier(0.55, 0, 0.28, 1.682);
+/* ends the session: logout, reboot */
+#logout:hover,
+#logout:focus-visible,
+#reboot:hover,
+#reboot:focus-visible {
+  background-color: alpha(@peach, 0.15);
+  color: @peach;
+  border-bottom-color: @peach;
+}
+
+/* powers off: shutdown */
+#shutdown:hover,
+#shutdown:focus-visible {
+  background-color: alpha(@pink, 0.15);
+  color: @pink;
+  border-bottom-color: @pink;
 }
 
 #lock {
   background-image: image(
     url("icons/lock_white.png"),
     url("/usr/share/wlogout/icons/lock.png")
-  );
-}
-
-#logout {
-  background-image: image(
-    url("icons/logout_white.png"),
-    url("/usr/share/wlogout/icons/logout.png")
   );
 }
 
@@ -78,10 +86,10 @@ button:hover {
   );
 }
 
-#shutdown {
+#logout {
   background-image: image(
-    url("icons/shutdown_white.png"),
-    url("/usr/share/wlogout/icons/shutdown.png")
+    url("icons/logout_white.png"),
+    url("/usr/share/wlogout/icons/logout.png")
   );
 }
 
@@ -89,5 +97,12 @@ button:hover {
   background-image: image(
     url("icons/reboot_white.png"),
     url("/usr/share/wlogout/icons/reboot.png")
+  );
+}
+
+#shutdown {
+  background-image: image(
+    url("icons/shutdown_white.png"),
+    url("/usr/share/wlogout/icons/shutdown.png")
   );
 }
