@@ -56,11 +56,12 @@
   "network": {
     // "interface": "wlp2s0", // (Optional) To force the use of this interface
     "format": "⚠  Disabled",
+    "format-disabled": "󰤮",
     // "format-wifi": "  {essid}",
     "format-wifi": "  {signalStrength}%",
     // "format-ethernet": " {ifname}: {ipaddr}/{cidr}",
     "format-ethernet": "  Wired",
-    "format-disconnected": "⚠  Disconnected",
+    "format-disconnected": "",
     "tooltip-format": " {ifname} via {gwaddri}",
     "tooltip-format-wifi": "   {essid} ({signalStrength}%)",
     "tooltip-format-ethernet": "  {ifname} ({ipaddr}/{cidr})",

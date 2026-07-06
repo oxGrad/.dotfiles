@@ -185,9 +185,13 @@ window#waybar.empty #window {
   color: @overlay0;
 }
 
-#network.disabled,
+#network.disabled {
+  color: @overlay0;
+  font-size: 15px;
+}
+
 #network.disconnected {
-  color: @pink;
+  color: @red;
 }
 
 #bluetooth {
