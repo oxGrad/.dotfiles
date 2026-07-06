@@ -135,6 +135,7 @@ window#waybar.empty #window {
 #backlight,
 #battery,
 #pulseaudio,
+#bluetooth,
 #network,
 #clock {
   background-color: alpha(@base, 0.92);
@@ -187,6 +188,15 @@ window#waybar.empty #window {
 #network.disabled,
 #network.disconnected {
   color: @pink;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+  color: @overlay0;
+}
+
+#bluetooth.connected {
+  color: @sky;
 }
 
 #temperature.critical {

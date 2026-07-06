@@ -24,6 +24,7 @@
     "tray",
     "backlight",
     "pulseaudio",
+    "bluetooth",
     "network",
     "battery",
     "clock"
