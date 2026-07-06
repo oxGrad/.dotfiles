@@ -10,6 +10,10 @@ packages:
     ignore:
       - "README.md"
     tags: [code]
+    install:
+      brew: neovim
+      apt: neovim
+      dnf: neovim
 
   tmux:
     target: ~/
@@ -33,10 +37,14 @@ packages:
   k9s:
     target: ~/.config/k9s
     tags: [kubernetes]
+    install:
+      brew: derailed/k9s/k9s
 
   ghostty:
     target: ~/.config/ghostty
     tags: [terminal]
+    install:
+      autoResolve: true
 
   # zellij:
   #   target: ~/.config/zellij
@@ -78,6 +86,16 @@ packages:
     tags: [sway, utilities]
     condition:
       os: linux
+    install:
+      autoResolve: true
+
+  alacritty:
+    target: ~/.config/alacritty
+    tags: [testing]
+    condition:
+      os: linux
+    install:
+      autoResolve: true
 
   # macOS-only: yabai window manager
   # yabai:
