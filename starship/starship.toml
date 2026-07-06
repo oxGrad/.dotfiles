@@ -12,7 +12,7 @@ format = """\
 $line_break$character"""
 
 [kubernetes]
-format = '[ ⎈ $context( \\($namespace\\)) ]($style)'
+format = '[ 󱃾 $context( \\($namespace\\)) ]($style)'
 style = 'bg:base fg:subtext'
 disabled = false
 
