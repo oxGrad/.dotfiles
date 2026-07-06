@@ -233,8 +233,8 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to toggle bluetooth
     bindsym --locked XF86Bluetooth exec ~/.config/waybar/scripts/bt-toggle.sh
-    # Special key to take a screenshot with grim
-    bindsym Print exec grim
+    # Special key to take a screenshot with flameshot (region select + annotate)
+    bindsym Print exec flameshot gui
 
 #
 # Status Bar:
