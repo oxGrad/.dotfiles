@@ -107,7 +107,7 @@ assign [class="Spotify"] workspace 6
     # bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
 
     # Power menu
-    bindsym $mod+Shift+x exec wlogout --buttons-per-row 6
+    bindsym $mod+Shift+x exec wlogout --buttons-per-row 6 -T 445 -B 445 -L 240 -R 240
 #
 # Moving around:
 #
@@ -231,6 +231,8 @@ bindsym $mod+r mode "resize"
     # Special keys to adjust brightness via brightnessctl
     bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
+    # Special key to toggle bluetooth
+    bindsym --locked XF86Bluetooth exec rfkill toggle bluetooth
     # Special key to take a screenshot with grim
     bindsym Print exec grim
 
