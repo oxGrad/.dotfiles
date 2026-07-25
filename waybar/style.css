@@ -143,7 +143,25 @@ window#waybar.empty #window {
   padding: 0 10px;
 }
 
-#backlight {
+/* Backlight (and tray, when it has no icons) hide themselves, so the left
+ * rounding of this island must follow whichever module ends up first
+ * rather than being pinned to #backlight. GTK's CSS engine treats
+ * "#module:first-child" as trivially true (each module is the sole child
+ * of its own wrapper), so instead target the wrapper widget itself:
+ * either the real first widget (tray absent) or the one right after
+ * tray's (tray present) — whichever module lands there is the real first. */
+box.modules-right > widget:first-child > #backlight,
+box.modules-right > widget:first-child > #battery,
+box.modules-right > widget:first-child > #pulseaudio,
+box.modules-right > widget:first-child > #bluetooth,
+box.modules-right > widget:first-child > #network,
+box.modules-right > widget:first-child > #clock,
+box.modules-right > widget:first-child + widget > #backlight,
+box.modules-right > widget:first-child + widget > #battery,
+box.modules-right > widget:first-child + widget > #pulseaudio,
+box.modules-right > widget:first-child + widget > #bluetooth,
+box.modules-right > widget:first-child + widget > #network,
+box.modules-right > widget:first-child + widget > #clock {
   border-radius: 13px 0 0 13px;
   padding-left: 14px;
 }
