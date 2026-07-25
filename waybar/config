@@ -2,7 +2,7 @@
   "layer": "top",
   "position": "top",
   "height": 26,
-  "margin": "4 8 0 8",
+  "margin": "4 8 2 8",
   "spacing": 0,
   "modules-left": [
     // "custom/launcher",
