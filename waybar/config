@@ -22,12 +22,7 @@
     // "custom/keyboard-layout",
     // "group/hardware",
     "tray",
-    "backlight",
-    "pulseaudio",
-    "bluetooth",
-    "network",
-    "battery",
-    "clock"
+    "group/system"
     // "idle_inhibitor",
     // "custom/power"
   ],

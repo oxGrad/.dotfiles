@@ -89,7 +89,7 @@
   },
   "pulseaudio": {
     // "scroll-step": 5,
-    "format": "{icon}  {volume: >3}%",
+    "format": "{icon} {volume: >3}%",
     "format-bluetooth": "{icon}  {volume: >3}%",
     "format-muted": " muted",
     "format-icons": {
@@ -133,6 +133,14 @@
     "format": " {percentage_used}% ",
     "path": "/",
     "on-click": "kitty -e htop"
+  },
+  // Group right island — one pill regardless of which modules (e.g. tray)
+  // are hidden, since GTK's CSS engine doesn't reliably support
+  // position-based selectors (:first-child, +) on dynamically shown/hidden
+  // waybar modules.
+  "group/system": {
+    "orientation": "horizontal",
+    "modules": ["backlight", "pulseaudio", "bluetooth", "network", "battery", "clock"]
   },
   // Group Hardware
   "group/hardware": {

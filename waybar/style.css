@@ -125,50 +125,39 @@ window#waybar.empty #window {
  * Right island — one continuous capsule: backlight … clock
  * -------------------------------------------------------------------------- */
 
-#tray {
+/* Right island lives on the group container, not on the individual
+ * modules — GTK's CSS engine doesn't reliably support position-based
+ * selectors (:first-child, +) on waybar modules that show/hide
+ * dynamically (e.g. tray with zero icons), so the pill must not depend
+ * on which module happens to be visually first. */
+/* #system { */
+/*   background-color: alpha(@base, 0.92); */
+/*   border-radius: 13px; */
+/*   margin: 2px 6px 2px 0; */
+/*   padding: 0 4px; */
+/* } */
+
+#system {
   background-color: alpha(@base, 0.92);
   border-radius: 13px;
   margin: 2px 6px 2px 0;
-  padding: 0 10px;
+  padding: 0 4px;
 }
 
+#tray,
 #backlight,
 #battery,
 #pulseaudio,
 #bluetooth,
 #network,
 #clock {
+  padding: 0 6px;
+}
+
+#tray {
   background-color: alpha(@base, 0.92);
-  margin: 2px 0;
-  padding: 0 10px;
-}
-
-/* Backlight (and tray, when it has no icons) hide themselves, so the left
- * rounding of this island must follow whichever module ends up first
- * rather than being pinned to #backlight. GTK's CSS engine treats
- * "#module:first-child" as trivially true (each module is the sole child
- * of its own wrapper), so instead target the wrapper widget itself:
- * either the real first widget (tray absent) or the one right after
- * tray's (tray present) — whichever module lands there is the real first. */
-box.modules-right > widget:first-child > #backlight,
-box.modules-right > widget:first-child > #battery,
-box.modules-right > widget:first-child > #pulseaudio,
-box.modules-right > widget:first-child > #bluetooth,
-box.modules-right > widget:first-child > #network,
-box.modules-right > widget:first-child > #clock,
-box.modules-right > widget:first-child + widget > #backlight,
-box.modules-right > widget:first-child + widget > #battery,
-box.modules-right > widget:first-child + widget > #pulseaudio,
-box.modules-right > widget:first-child + widget > #bluetooth,
-box.modules-right > widget:first-child + widget > #network,
-box.modules-right > widget:first-child + widget > #clock {
-  border-radius: 13px 0 0 13px;
-  padding-left: 14px;
-}
-
-#clock {
-  border-radius: 0 13px 13px 0;
-  padding-right: 14px;
+  border-radius: 13px;
+  margin: 2px 8px 2px 0;
 }
 
 /* -----------------------------------------------------------------------------
@@ -240,14 +229,14 @@ box.modules-right > widget:first-child + widget > #clock {
   padding: 0 10px;
 }
 
-#temperature,
-#cpu,
-#memory,
-#disk,
-#custom-system {
-  padding: 0 8px;
-  color: @subtext1;
-}
+/* #temperature, */
+/* #cpu, */
+/* #memory, */
+/* #disk, */
+/* #custom-system { */
+/*   padding: 0 8px; */
+/*   color: @subtext1; */
+/* } */
 
 /* -----------------------------------------------------------------------------
  * Standalone buttons
