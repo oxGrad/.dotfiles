@@ -1,0 +1,4 @@
+{
+  // No customized modules for the center island yet;
+  // "sway/window" is used as-is with waybar defaults.
+}

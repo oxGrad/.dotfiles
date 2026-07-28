@@ -1,0 +1,20 @@
+{
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{icon}",
+    "format-icons": {
+      "1": "",
+      "2": "",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": ""
+    }
+  },
+  "custom/launcher": {
+    "format": "",
+    "on-click": "wofi -show drun",
+    "tooltip": false
+  }
+}
