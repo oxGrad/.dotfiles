@@ -29,6 +29,9 @@ output * bg ~/.dotfiles/assets/1363709.png fill
 # output * bg ~/.dotfiles/assets/gargantua-black-5200x3250-9621.jpg fill
 
 default_border pixel 0
+gaps inner 8
+# gaps outer 8
+
 #
 # Example configuration:
 #
