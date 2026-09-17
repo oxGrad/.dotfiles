@@ -81,6 +81,14 @@ packages:
     condition:
       os: linux
 
+  xdg-desktop-portal-wlr:
+    target: ~/.config/xdg-desktop-portal-wlr
+    tags: [sway]
+    condition:
+      os: linux
+    install:
+      dnf: xdg-desktop-portal-wlr
+
   flameshot:
     target: ~/.config/flameshot
     tags: [sway, utilities]
