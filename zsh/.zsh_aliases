@@ -20,6 +20,9 @@ alias bi="brew install"
 alias bud="buildah bud"
 brun() { buildah run "$ctr" -- "$@"; }
 
+# claude
+alias cw='CLAUDE_CONFIG_DIR=~/.claude-work claude'
+
 # dnf
 alias sdu="sudo dnf update"
 alias sduy="sudo dnf update -y"
