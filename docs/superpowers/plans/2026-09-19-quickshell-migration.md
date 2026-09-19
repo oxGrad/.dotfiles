@@ -167,8 +167,12 @@ ShellRoot {
 - [ ] **Step 4: Symlink and run it**
 
 Run: `knot tie quickshell`
-Run: `qs -c quickshell` (or `quickshell -c quickshell`, matching whichever
-binary Step 1 found)
+Run: `qs` (bare — QuickShell registers `~/.config/quickshell/shell.qml` as
+the "default" config since it exists directly rather than under a named
+subdirectory, so `-c quickshell` looks for a subdirectory that doesn't
+exist and fails with "Could not find... config directory". Confirmed
+against a real install: Quickshell 0.3.1, Fedora COPR
+errornointernet/quickshell.)
 Expected: a bar-shaped bonewhite-text panel appears at the top of each
 screen reading "quickshell alive", with no QML errors in the terminal.
 
@@ -309,7 +313,7 @@ Quickshell` / `import QtQuick` lines rather than inline.)
 
 - [ ] **Step 6: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: a single rounded, semi-transparent dark pill reading "themed
 pill" in bonewhite text, centered on the bar — no QML errors.
 
@@ -391,7 +395,7 @@ ShellRoot {
 
 - [ ] **Step 2: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: bar renders with no visible content (all three rows empty) and
 no QML errors — this proves the anchoring compiles before any module
 logic is added on top of it.
@@ -490,7 +494,7 @@ imports, and inside `leftSection`, add:
 
 - [ ] **Step 3: Run it against the live Sway session**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: the left pill shows one icon per real Sway workspace, the
 focused one in bonewhite and the rest in subtext0/dimmed. Switch
 workspaces (`$mod+1`, etc.) and confirm the highlighted icon updates
@@ -589,7 +593,7 @@ In `quickshell/shell.qml`, inside `centerSection`, add:
 
 - [ ] **Step 3: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: center pill shows the focused window's title, updates when
 you switch focus, and disappears (matching `window#waybar.empty
 #window` going transparent) when no window is focused.
@@ -662,7 +666,7 @@ group added in later tasks):
 
 - [ ] **Step 3: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: a small pill appears showing icons for any app currently
 publishing a `StatusNotifierItem` (e.g. an already-running tray app);
 clicking an icon activates it the same as waybar's tray does.
@@ -770,7 +774,7 @@ not already present from Task 2) and inside `rightSection`, after
 
 - [ ] **Step 3: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: right side shows a pill with a backlight icon + percentage;
 scrolling up/down over it changes screen brightness by 5%, matching
 waybar's `on-scroll-up`/`on-scroll-down` behavior.
@@ -853,7 +857,7 @@ In `quickshell/shell.qml`'s system-pill `Row` (from Task 7), after
 
 - [ ] **Step 3: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: shows current sink volume percentage; scrolling changes
 volume in ~5% steps; clicking opens pavucontrol; muting the sink
 elsewhere (e.g. `pactl set-sink-mute @DEFAULT_SINK@ toggle`) turns the
@@ -941,7 +945,7 @@ Task 12):
 
 - [ ] **Step 3: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: shows charge percentage with a level-appropriate icon; green
 while charging/plugged; yellow at ≤30% unplugged; blinking pink at
 ≤15% unplugged — matching the `#battery.warning`/`#battery.critical`
@@ -1135,7 +1139,7 @@ Battery.)
 
 - [ ] **Step 6: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: bluetooth icon reflects adapter state (dim overlay0 = off,
 bonewhite = on/disconnected, sky = connected); clicking opens a popup
 pill below it listing paired devices with connect/disconnect on click,
@@ -1359,7 +1363,7 @@ Task 10 to:
 
 - [ ] **Step 4: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: icon reflects current connection type/state (wifi % / wired /
 disabled / disconnected-red, matching `#network.disabled`/
 `#network.disconnected` styling); clicking opens a popup listing nearby
@@ -1529,7 +1533,7 @@ In `quickshell/shell.qml`'s system-pill `Row`, append after
 
 - [ ] **Step 4: Run it**
 
-Run: `qs -c quickshell`
+Run: `qs`
 Expected: clock ticks every second in `HH:mm:ss`; left-click toggles to
 the `ddd dd MMM | HH:mm:ss` alt format; right-click opens a calendar
 popup showing the current month with today highlighted in pink and
@@ -1557,7 +1561,7 @@ git commit -m "feat(quickshell): add Clock module with native calendar popup"
 - [ ] **Step 1: Side-by-side check before cutting over**
 
 With waybar still running as the active `swaybar_command`, run
-`qs -c quickshell` manually in a terminal and compare every module
+`qs` manually in a terminal and compare every module
 against the live waybar bar one more time: workspaces, window title,
 tray, backlight scroll, volume scroll/click, bluetooth popup connect,
 network popup connect, battery color states, clock click/right-click.
@@ -1579,10 +1583,12 @@ Edit `sway/config`, replacing:
 with:
 
 ```
-    swaybar_command qs -c quickshell
+    swaybar_command qs
 ```
 
-(Use whichever binary name Task 1 confirmed — `qs` or `quickshell`.)
+(`qs` — confirmed against the real install: Quickshell 0.3.1, Fedora COPR
+errornointernet/quickshell. Bare `qs` with no `-c` flag, since
+`~/.config/quickshell/shell.qml` is registered as the "default" config.)
 
 - [ ] **Step 4: Reload Sway**
 
