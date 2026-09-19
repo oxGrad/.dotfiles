@@ -58,6 +58,7 @@ ShellRoot {
                         Modules.Backlight {}
                         Modules.Volume {}
                         Modules.Bluetooth {}
+                        Modules.Network {}
                         Modules.Battery {}
                     }
                 }
