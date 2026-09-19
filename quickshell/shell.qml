@@ -57,6 +57,7 @@ ShellRoot {
                         spacing: 10
                         Modules.Backlight {}
                         Modules.Volume {}
+                        Modules.Bluetooth {}
                         Modules.Battery {}
                     }
                 }
