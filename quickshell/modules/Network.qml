@@ -50,6 +50,20 @@ Item {
                 else if (wifi && wifi.endsWith(":connected")) root.state = "wifi"
                 else if (wifi && wifi.endsWith(":unavailable")) root.state = "disabled"
                 else root.state = "disconnected"
+
+                if (root.state === "wifi") signal.running = true
+                else root.signalPct = 0
+            }
+        }
+    }
+
+    Process {
+        id: signal
+        command: ["nmcli", "-t", "-f", "IN-USE,SIGNAL", "dev", "wifi", "list"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                const line = text.trim().split("\n").find(l => l.startsWith("*:"))
+                root.signalPct = line ? parseInt(line.split(":")[1]) : 0
             }
         }
     }
