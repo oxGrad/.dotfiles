@@ -60,6 +60,7 @@ ShellRoot {
                         Modules.Bluetooth {}
                         Modules.Network {}
                         Modules.Battery {}
+                        Modules.Clock {}
                     }
                 }
             }
