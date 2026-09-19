@@ -2,6 +2,7 @@
 import Quickshell
 import QtQuick
 import "components" as Components
+import "modules" as Modules
 
 ShellRoot {
     Variants {
@@ -30,6 +31,8 @@ ShellRoot {
                 anchors.left: parent.left
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: 6
+
+                Modules.Workspaces {}
             }
 
             Row {
