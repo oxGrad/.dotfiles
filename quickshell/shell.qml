@@ -50,6 +50,14 @@ ShellRoot {
                 spacing: 6
 
                 Modules.Tray {}
+
+                Components.Pill {
+                    horizontalPadding: 4
+                    content: Row {
+                        spacing: 10
+                        Modules.Backlight {}
+                    }
+                }
             }
         }
     }
