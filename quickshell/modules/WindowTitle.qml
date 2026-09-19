@@ -34,7 +34,8 @@ Components.Pill {
     }
 
     function findFocusedTitle(node) {
-        if (node.focused && node.name) return node.name
+        const isWindow = node.type === "con" || node.type === "floating_con"
+        if (isWindow && node.focused && node.name) return node.name
         for (const child of (node.nodes ?? []).concat(node.floating_nodes ?? [])) {
             const found = findFocusedTitle(child)
             if (found) return found
