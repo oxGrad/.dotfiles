@@ -25,7 +25,7 @@ Components.PopupPanel {
     content: [
         Text {
             text: Qt.formatDate(root.viewDate, "MMMM yyyy")
-            color: Root.Theme.mauve
+            color: Root.Theme.bonewhite
             font.family: Root.Theme.fontFamily
             font.pixelSize: Root.Theme.fontSize
             font.weight: Font.DemiBold
@@ -47,7 +47,7 @@ Components.PopupPanel {
                         const isToday = modelData === today.getDate()
                             && root.viewDate.getMonth() === today.getMonth()
                             && root.viewDate.getFullYear() === today.getFullYear()
-                        return isToday ? Root.Theme.pink : Root.Theme.sky
+                        return isToday ? Root.Theme.pink : Root.Theme.bonewhite
                     }
                     font.family: Root.Theme.fontFamily
                     font.pixelSize: Root.Theme.fontSize
