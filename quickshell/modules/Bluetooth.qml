@@ -17,7 +17,8 @@ Item {
         text: root.enabled ? (root.connected ? "󰃡" : "󰃠") : "󰃣" // 󰂱 / 󰂯 / 󰂲
         color: !root.enabled ? Root.Theme.overlay0 : (root.connected ? Root.Theme.sky : Root.Theme.bonewhite)
         font.family: Root.Theme.fontFamily
-        font.pixelSize: 15
+        font.pixelSize: Root.Theme.fontSize
+        font.weight: Font.DemiBold
     }
 
     BluetoothPopup {

@@ -13,16 +13,20 @@ Components.PopupPanel {
     visible: false
 
     content: [
-        Row {
+        Rectangle {
             width: parent.width
+            height: 22
+            color: "transparent"
             Text {
+                anchors.verticalCenter: parent.verticalCenter
                 text: Bluetooth.defaultAdapter?.enabled ? "Bluetooth: on" : "Bluetooth: off"
                 color: Root.Theme.bonewhite
                 font.family: Root.Theme.fontFamily
                 font.pixelSize: Root.Theme.fontSize
+                font.weight: Font.DemiBold
             }
             MouseArea {
-                width: parent.width; height: parent.height
+                anchors.fill: parent
                 onClicked: Bluetooth.defaultAdapter.enabled = !Bluetooth.defaultAdapter.enabled
             }
         },
@@ -39,6 +43,7 @@ Components.PopupPanel {
                     color: modelData.connected ? Root.Theme.sky : Root.Theme.bonewhite
                     font.family: Root.Theme.fontFamily
                     font.pixelSize: Root.Theme.fontSize
+                    font.weight: Font.DemiBold
                 }
                 MouseArea {
                     anchors.fill: parent
@@ -51,6 +56,7 @@ Components.PopupPanel {
             color: Root.Theme.subtext1
             font.family: Root.Theme.fontFamily
             font.pixelSize: Root.Theme.fontSize
+            font.weight: Font.DemiBold
             MouseArea {
                 anchors.fill: parent
                 onClicked: Bluetooth.defaultAdapter.discovering = true
