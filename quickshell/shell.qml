@@ -39,6 +39,8 @@ ShellRoot {
                 id: centerSection
                 anchors.centerIn: parent
                 spacing: 6
+
+                Modules.WindowTitle {}
             }
 
             Row {
