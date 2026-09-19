@@ -48,6 +48,8 @@ ShellRoot {
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
                 spacing: 6
+
+                Modules.Tray {}
             }
         }
     }
