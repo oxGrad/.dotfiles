@@ -25,15 +25,24 @@ ShellRoot {
             }
             color: "transparent"
 
-            Components.Pill {
+            Row {
+                id: leftSection
+                anchors.left: parent.left
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 6
+            }
+
+            Row {
+                id: centerSection
                 anchors.centerIn: parent
-                content: Text {
-                    text: "themed pill"
-                    color: Theme.bonewhite
-                    font.family: Theme.fontFamily
-                    font.pixelSize: Theme.fontSize
-                    font.weight: Font.DemiBold
-                }
+                spacing: 6
+            }
+
+            Row {
+                id: rightSection
+                anchors.right: parent.right
+                anchors.verticalCenter: parent.verticalCenter
+                spacing: 6
             }
         }
     }
