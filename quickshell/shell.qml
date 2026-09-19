@@ -56,6 +56,7 @@ ShellRoot {
                     content: Row {
                         spacing: 10
                         Modules.Backlight {}
+                        Modules.Volume {}
                     }
                 }
             }
