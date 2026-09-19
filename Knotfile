@@ -69,6 +69,14 @@ packages:
     condition:
       os: linux
 
+  quickshell:
+    target: ~/.config/quickshell
+    tags: [sway]
+    condition:
+      os: linux
+    # quickshell isn't in Fedora's default repos — install via COPR
+    # (or the appropriate source for your distro) before `knot tie`.
+
   wlogout:
     target: ~/.config/wlogout
     tags: [sway]
