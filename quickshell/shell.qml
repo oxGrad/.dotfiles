@@ -1,6 +1,7 @@
 // quickshell/shell.qml
 import Quickshell
 import QtQuick
+import "components" as Components
 
 ShellRoot {
     Variants {
@@ -24,10 +25,15 @@ ShellRoot {
             }
             color: "transparent"
 
-            Text {
+            Components.Pill {
                 anchors.centerIn: parent
-                text: "quickshell alive"
-                color: "#faf9f6"
+                content: Text {
+                    text: "themed pill"
+                    color: Theme.bonewhite
+                    font.family: Theme.fontFamily
+                    font.pixelSize: Theme.fontSize
+                    font.weight: Font.DemiBold
+                }
             }
         }
     }
