@@ -24,7 +24,7 @@ Item {
         anchors.fill: parent
         text: root.muted
             ? "󰝟 muted" //
-            : "󰕾 " + root.volumePct.toString().padStart(4, " ") + "%" //
+            : "󰕾 " + root.volumePct.toString().padStart(2, " ") + "%" //
         color: root.muted ? Root.Theme.overlay0 : Root.Theme.bonewhite
         font.family: Root.Theme.fontFamily
         font.pixelSize: Root.Theme.fontSize
