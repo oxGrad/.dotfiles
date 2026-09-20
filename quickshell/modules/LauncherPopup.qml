@@ -55,8 +55,70 @@ PopupWindow {
         if (!open) {
             closing = true
             closeTimer.restart()
+        } else {
+            searchField.text = ""
+            root.updateResults()
+            searchField.forceActiveFocus()
         }
     }
+
+    property var results: []
+
+    function fuzzyScore(query, target) {
+        if (query.length === 0) return 0
+        const q = query.toLowerCase()
+        const t = target.toLowerCase()
+        let qi = 0
+        let score = 0
+        let consecutive = 0
+        for (let ti = 0; ti < t.length && qi < q.length; ti++) {
+            if (t[ti] === q[qi]) {
+                consecutive += 1
+                score += 1 + consecutive
+                if (ti === 0 || t[ti - 1] === " ") score += 5
+                qi += 1
+            } else {
+                consecutive = 0
+            }
+        }
+        return qi === q.length ? score : -1
+    }
+
+    function appScore(query, entry) {
+        if (query.length === 0) return 0
+        let best = -1
+        const fields = [entry.name, entry.genericName].concat(entry.keywords)
+        for (const field of fields) {
+            if (!field) continue
+            const s = root.fuzzyScore(query, field)
+            if (s > best) best = s
+        }
+        return best
+    }
+
+    function updateResults() {
+        const query = searchField.text
+        const all = DesktopEntries.applications.values.filter(e => !e.noDisplay)
+        const scored = []
+        for (const entry of all) {
+            const score = root.appScore(query, entry)
+            if (query.length === 0 || score >= 0) scored.push({ entry: entry, score: score })
+        }
+        scored.sort((a, b) => b.score - a.score)
+        root.results = scored.slice(0, 8).map(s => s.entry)
+    }
+
+    // DesktopEntries populates asynchronously in the background (scanning
+    // .desktop files takes noticeable time after qs starts). updateResults()
+    // is only ever called imperatively (on open / on text change), so
+    // without this it can run before the scan finishes and permanently
+    // freeze `results` at an empty/partial snapshot. Re-run whenever the
+    // underlying list actually changes.
+    Connections {
+        target: DesktopEntries.applications
+        function onValuesChanged() { root.updateResults() }
+    }
+
     Timer {
         id: closeTimer
         interval: root.morphDuration + 20
@@ -94,8 +156,19 @@ PopupWindow {
                 NumberAnimation { duration: 120 }
             }
 
+            TextInput {
+                id: searchField
+                width: parent.width
+                color: Root.Theme.bonewhite
+                font.family: Root.Theme.fontFamily
+                font.pixelSize: Root.Theme.fontSize
+                font.weight: Font.DemiBold
+                clip: true
+                onTextChanged: root.updateResults()
+            }
+
             Repeater {
-                model: DesktopEntries.applications.values.filter(e => !e.noDisplay).slice(0, 8)
+                model: root.results
                 delegate: Item {
                     required property var modelData
                     width: parent.width
