@@ -76,7 +76,7 @@ Components.PopupPanel {
                         font.weight: Font.DemiBold
                     }
                     Text {
-                        text: root.bars(modelData.signal) + (modelData.secured ? " 󰂼" : "") //
+                        text: root.bars(modelData.signal) + (modelData.secured ? " 󰌾" : "") //
                         color: Root.Theme.subtext1
                         font.family: Root.Theme.fontFamily
                         font.pixelSize: Root.Theme.fontSize
@@ -94,7 +94,7 @@ Components.PopupPanel {
             }
         },
         Text {
-            text: "󰖎 Rescan" //
+            text: "󰑐 Rescan" //
             color: Root.Theme.subtext1
             font.family: Root.Theme.fontFamily
             font.pixelSize: Root.Theme.fontSize

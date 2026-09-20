@@ -39,7 +39,7 @@ Components.PopupPanel {
                 color: "transparent"
                 Text {
                     anchors.verticalCenter: parent.verticalCenter
-                    text: (modelData.connected ? "󰃡 " : "󰃢 ") + modelData.name // 󰂱 / 󰂯
+                    text: (modelData.connected ? "󰂱 " : "󰂯 ") + modelData.name // 󰂱 / 󰂯
                     color: modelData.connected ? Root.Theme.sky : Root.Theme.bonewhite
                     font.family: Root.Theme.fontFamily
                     font.pixelSize: Root.Theme.fontSize
@@ -52,7 +52,7 @@ Components.PopupPanel {
             }
         },
         Text {
-            text: "󱖐 Scan"  // 󰑐
+            text: "󰑐 Scan"  // 󰑐
             color: Root.Theme.subtext1
             font.family: Root.Theme.fontFamily
             font.pixelSize: Root.Theme.fontSize

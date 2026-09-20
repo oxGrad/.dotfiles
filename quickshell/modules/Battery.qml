@@ -24,9 +24,9 @@ Item {
         id: label
         anchors.fill: parent
         text: {
-            const icons = ["󰍾", "󰍽", "󰍼", "󰍻", "󰍺"] //
+            const icons = ["󰁺", "󰁼", "󰁾", "󰂀", "󰁹"] //
             const idx = Math.min(icons.length - 1, Math.floor(root.pct / (100 / icons.length)))
-            const icon = (root.charging || root.plugged) ? "󰎄" : icons[idx] //
+            const icon = (root.charging || root.plugged) ? "󰂄" : icons[idx] //
             return icon + " " + root.pct.toString().padStart(3, " ") + "%"
         }
         color: {

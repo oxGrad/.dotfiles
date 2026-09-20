@@ -13,7 +13,7 @@ Item {
         id: label
         anchors.fill: parent
         text: {
-            const icons = ["󰋢", "󰋡", "󰋠"] // 󰃛 󰃞 󰃠
+            const icons = ["󰃛", "󰃞", "󰃠"]
             const idx = Math.min(icons.length - 1, Math.floor(root.percent / (100 / icons.length)))
             return icons[idx] + " " + root.percent.toString().padStart(3, " ") + "%"
         }

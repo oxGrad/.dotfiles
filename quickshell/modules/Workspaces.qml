@@ -9,13 +9,13 @@ Components.Pill {
     property var workspaces: []
 
     content: Row {
-        spacing: 4
+        spacing: 10
         Repeater {
             model: root.workspaces
             delegate: Text {
                 required property var modelData
                 text: {
-                    const icons = { "1": "", "2": "", "3": "", "4": "", "5": "", "6": "" }
+                    const icons = { "1": "", "2": "", "3": "", "4": "", "5": "", "6": "" }
                     return icons[modelData.name] ?? modelData.name
                 }
                 color: modelData.focused ? Root.Theme.bonewhite : Root.Theme.subtext0

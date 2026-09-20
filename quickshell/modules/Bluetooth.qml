@@ -14,7 +14,7 @@ Item {
     Text {
         id: label
         anchors.fill: parent
-        text: root.enabled ? (root.connected ? "󰃡" : "󰃠") : "󰃣" // 󰂱 / 󰂯 / 󰂲
+        text: root.enabled ? (root.connected ? "󰂱" : "󰂯") : "󰂲" // 󰂱 / 󰂯 / 󰂲
         color: !root.enabled ? Root.Theme.overlay0 : (root.connected ? Root.Theme.sky : Root.Theme.bonewhite)
         font.family: Root.Theme.fontFamily
         font.pixelSize: Root.Theme.fontSize

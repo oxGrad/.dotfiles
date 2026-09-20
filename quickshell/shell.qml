@@ -47,7 +47,7 @@ ShellRoot {
                 id: rightSection
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
-                spacing: 6
+                spacing: 8
 
                 Modules.Tray {}
 

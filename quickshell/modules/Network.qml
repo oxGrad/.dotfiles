@@ -15,10 +15,10 @@ Item {
         id: label
         anchors.fill: parent
         text: {
-            if (root.state === "wifi") return "󰤭 " + root.signalPct + "%" //
-            if (root.state === "ethernet") return "󰌿 Wired" //
-            if (root.state === "disabled") return "󰍮" //
-            return "󰍚" //
+            if (root.state === "wifi") return "󰖩 " + root.signalPct + "%" //
+            if (root.state === "ethernet") return "󰈀 Wired" //
+            if (root.state === "disabled") return "󰖪" //
+            return "󰤭" //
         }
         color: root.state === "disconnected" ? Root.Theme.red
              : root.state === "disabled" ? Root.Theme.overlay0
