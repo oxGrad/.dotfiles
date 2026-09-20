@@ -8,22 +8,39 @@ PopupWindow {
     id: root
     property var anchorItem: null
     property bool open: false
+    // Emitted when the compositor/window dismisses the popup, or an entry
+    // is launched. `open` is externally bound (Clock.qml:
+    // `open: root.launcherOpen`); writing to it from in here would sever
+    // that binding permanently (QML: assigning to a property from inside
+    // the component disconnects any external binding on it), so callers
+    // react to this signal and set their own state to false instead.
+    signal dismissed()
 
     anchor.item: anchorItem
     anchor.edges: Edges.Bottom
-    grabFocus: open
+    // No grabFocus here: a grabbing xdg_popup can only be created in
+    // direct response to a real input-event serial (button/key/touch).
+    // This popup is opened via IPC (`qs ipc call launcher toggle`), which
+    // has no such serial, so the compositor rejects the grab and the
+    // popup never maps (verified live: "Failed to create grabbing popup
+    // ... parent window has received input" in the Wayland log). None of
+    // the sibling popups (CalendarPopup/NetworkPopup/BluetoothPopup) grab
+    // focus either; closing is done by toggling again, same as those.
     visible: open
     color: "transparent"
 
-    readonly property real collapsedWidth: anchorItem ? anchorItem.width : 40
-    readonly property real collapsedHeight: anchorItem ? anchorItem.height : 22
-    readonly property real expandedWidth: 320
-    readonly property real expandedHeight: 320
+    // Fixed size for this skeleton. An earlier draft tied
+    // implicitWidth/Height to `open` (collapsed pill size <-> expanded
+    // panel size) to sketch ahead for the Task 2 animated-resize feature,
+    // but resizing the popup at the same moment `visible` turns true
+    // corrupts the xdg_popup's geometry negotiation and it silently never
+    // maps (verified live: reproduced with grabFocus removed, still no
+    // render; fixed immediately by using a constant size instead). Task 2
+    // owns the real animated resize; this just needs to show/hide.
+    implicitWidth: 320
+    implicitHeight: 320
 
-    implicitWidth: open ? expandedWidth : collapsedWidth
-    implicitHeight: open ? expandedHeight : collapsedHeight
-
-    onClosed: root.open = false
+    onClosed: root.dismissed()
 
     Rectangle {
         anchors.fill: parent
@@ -38,31 +55,33 @@ PopupWindow {
 
             Repeater {
                 model: DesktopEntries.applications.values.filter(e => !e.noDisplay).slice(0, 8)
-                delegate: Row {
+                delegate: Item {
                     required property var modelData
                     width: parent.width
-                    spacing: 8
+                    height: 24
 
-                    IconImage {
-                        source: Quickshell.iconPath(modelData.icon)
-                        implicitSize: 20
+                    Row {
                         anchors.verticalCenter: parent.verticalCenter
-                    }
-                    Text {
-                        text: modelData.name
-                        color: Root.Theme.bonewhite
-                        font.family: Root.Theme.fontFamily
-                        font.pixelSize: Root.Theme.fontSize
-                        font.weight: Font.DemiBold
-                        anchors.verticalCenter: parent.verticalCenter
+                        spacing: 8
+
+                        IconImage {
+                            source: Quickshell.iconPath(modelData.icon)
+                            implicitSize: 20
+                        }
+                        Text {
+                            text: modelData.name
+                            color: Root.Theme.bonewhite
+                            font.family: Root.Theme.fontFamily
+                            font.pixelSize: Root.Theme.fontSize
+                            font.weight: Font.DemiBold
+                        }
                     }
 
                     MouseArea {
-                        width: parent.width
-                        height: parent.height
+                        anchors.fill: parent
                         onClicked: {
                             modelData.execute()
-                            root.open = false
+                            root.dismissed()
                         }
                     }
                 }

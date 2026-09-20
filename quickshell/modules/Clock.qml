@@ -36,6 +36,7 @@ Item {
         id: launcher
         anchorItem: root
         open: root.launcherOpen
+        onDismissed: root.launcherOpen = false
     }
 
     IpcHandler {
