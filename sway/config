@@ -244,7 +244,7 @@ bindsym $mod+r mode "resize"
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    swaybar_command qs
+    swaybar_command /home/graditya/.config/sway/scripts/quickshell-bar.sh
     position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
