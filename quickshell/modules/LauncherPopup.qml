@@ -4,44 +4,63 @@ import Quickshell
 import Quickshell.Widgets
 import ".." as Root
 
-PopupWindow {
+PanelWindow {
     id: root
     property var anchorItem: null
     property bool open: false
-    // Emitted when the compositor/window dismisses the popup, or an entry
-    // is launched. `open` is externally bound (Clock.qml:
-    // `open: root.launcherOpen`); writing to it from in here would sever
-    // that binding permanently (QML: assigning to a property from inside
-    // the component disconnects any external binding on it), so callers
-    // react to this signal and set their own state to false instead.
+    // Emitted when an entry is launched (click-to-launch below). `open` is
+    // externally bound (Clock.qml: `open: root.launcherOpen`); writing to
+    // it from in here would sever that binding permanently (QML: assigning
+    // to a property from inside the component disconnects any external
+    // binding on it), so callers react to this signal and set their own
+    // state to false instead.
     signal dismissed()
 
-    anchor.item: anchorItem
-    anchor.edges: Edges.Bottom
-    // No grabFocus here: a grabbing xdg_popup can only be created in
-    // direct response to a real input-event serial (button/key/touch).
-    // This popup is opened via IPC (`qs ipc call launcher toggle`), which
-    // has no such serial, so the compositor rejects the grab and the
-    // popup never maps (verified live: "Failed to create grabbing popup
-    // ... parent window has received input" in the Wayland log). None of
-    // the sibling popups (CalendarPopup/NetworkPopup/BluetoothPopup) grab
-    // focus either; closing is done by toggling again, same as those.
+    // History: this was originally a PopupWindow (xdg_popup) anchored to
+    // the clock via `anchor.item`/`anchor.edges`. That type's only
+    // keyboard-focus mechanism is a compositor "grab", which can only be
+    // requested at popup-creation time using a real input-event serial
+    // (button/key/touch). This popup is created via a background IPC call
+    // (`qs ipc call launcher toggle`) with no such serial, so a grab was
+    // never possible and typed input never reached the field (verified
+    // live: click-to-place-caret worked, but keystrokes didn't land).
+    // PanelWindow (layer-shell) with `focusable: true` is the proven-working
+    // alternative: real keyboard delivery here depends on this compositor's
+    // focus_follows_mouse behavior (confirmed live by hovering the mouse
+    // over the window), not on any grab/serial concept. `anchor`/`Edges`
+    // are PopupWindow/PopupAnchor-only concepts and don't exist on
+    // PanelWindow; anchoring below is to screen edges instead, same as the
+    // main bar in shell.qml.
+    focusable: true
+    aboveWindows: true
+    // Transient overlay, not a dock: must not reserve permanent screen
+    // space (verified live: other windows/desktop don't shift when open).
+    exclusiveZone: -1
+    anchors {
+        top: true
+        left: true
+        right: true
+    }
+    margins {
+        top: 32
+    }
     // `visible` stays true a beat past `open` going false so the shrink
     // animation below is actually visible before the window unmaps; see
     // `closing` below.
     visible: open || closing
     color: "transparent"
 
-    // Fixed size, permanently. An earlier draft tied implicitWidth/Height
-    // to `open` (collapsed pill size <-> expanded panel size) directly on
-    // this PopupWindow, but resizing the popup's own geometry at the same
-    // moment `visible` turns true corrupts the xdg_popup's geometry
-    // negotiation and it silently never maps (verified live: reproduced
-    // with grabFocus removed, still no render; fixed immediately by using
-    // a constant size instead). This window's own geometry must never be
-    // tied to `open` again. The Task 2 morph instead animates an inner
-    // Rectangle's size within this fixed-size window (see `panel` below).
-    implicitWidth: 320
+    // Fixed height, permanently. An earlier PopupWindow-based draft tied
+    // implicitWidth/Height to `open` (collapsed pill size <-> expanded
+    // panel size) directly on the window itself; resizing the window's own
+    // geometry at the same moment `visible` turned true corrupted that
+    // xdg_popup's geometry negotiation and it silently never mapped. This
+    // window's own geometry must never be tied to `open` again. The Task 2
+    // morph instead animates an inner Rectangle's size within this
+    // fixed-size window (see `panel` below). Width is no longer set here:
+    // the `left`/`right` screen anchors above make the window span the
+    // full screen width, which is what lets `panel` below center itself
+    // under the clock via `anchors.horizontalCenter`.
     implicitHeight: 320
 
     // Single source of truth for all morph animation timings to prevent
@@ -125,7 +144,14 @@ PopupWindow {
         onTriggered: root.closing = false
     }
 
-    onClosed: root.dismissed()
+    // No `onClosed` handler: that was an xdg_popup "compositor dismissed
+    // me" event specific to PopupWindow and PanelWindow has no equivalent
+    // — layer-shell surfaces don't auto-dismiss on focus loss the way
+    // xdg_popup grabs did. Not a regression: click-outside-to-close was
+    // already established as infeasible and dropped in an earlier task.
+    // `visible: open || closing` above already gives full manual control;
+    // `dismissed()` is still emitted from the click-to-launch handler below
+    // and still listened to by Clock.qml.
 
     // Morphs between the clock pill's live size (collapsed) and the full
     // panel size (expanded). Anchored to the window's top-center so it
