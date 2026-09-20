@@ -6,8 +6,14 @@ import ".." as Root
 Item {
     id: root
     property int percent: 0
-    implicitWidth: label.implicitWidth
-    implicitHeight: label.implicitHeight
+    property bool available: false
+
+    // No backlight device (desktop with an external monitor): hide the
+    // module entirely rather than showing a permanently-0% icon (Row
+    // excludes invisible children from layout, so this leaves no gap).
+    visible: available
+    implicitWidth: available ? label.implicitWidth : 0
+    implicitHeight: available ? label.implicitHeight : 0
 
     Text {
         id: label
@@ -50,5 +56,16 @@ Item {
         }
     }
 
-    Component.onCompleted: refresh.running = true
+    Process {
+        id: detect
+        command: ["sh", "-c", "ls /sys/class/backlight 2>/dev/null | head -1"]
+        stdout: StdioCollector {
+            onStreamFinished: {
+                root.available = text.trim().length > 0
+                if (root.available) refresh.running = true
+            }
+        }
+    }
+
+    Component.onCompleted: detect.running = true
 }

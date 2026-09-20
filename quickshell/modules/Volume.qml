@@ -13,6 +13,12 @@ Item {
     implicitWidth: label.implicitWidth
     implicitHeight: label.implicitHeight
 
+    // Pipewire nodes only report live property updates once tracked; without
+    // this, sink.audio.volume/muted stay stuck at their initial (zero) value.
+    PwObjectTracker {
+        objects: root.sink ? [root.sink] : []
+    }
+
     Text {
         id: label
         anchors.fill: parent
