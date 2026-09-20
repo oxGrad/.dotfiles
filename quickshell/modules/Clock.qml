@@ -1,5 +1,6 @@
 // quickshell/modules/Clock.qml
 import QtQuick
+import Quickshell.Io
 import ".." as Root
 import "../components" as Components
 
@@ -7,6 +8,7 @@ Item {
     id: root
     property date now: new Date()
     property bool altFormat: false
+    property bool launcherOpen: false
 
     implicitWidth: pill.implicitWidth
     implicitHeight: pill.implicitHeight
@@ -28,6 +30,19 @@ Item {
     CalendarPopup {
         id: popup
         anchorItem: root
+    }
+
+    LauncherPopup {
+        id: launcher
+        anchorItem: root
+        open: root.launcherOpen
+    }
+
+    IpcHandler {
+        target: "launcher"
+        function toggle() {
+            root.launcherOpen = !root.launcherOpen
+        }
     }
 
     MouseArea {
