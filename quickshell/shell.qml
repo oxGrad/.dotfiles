@@ -40,7 +40,7 @@ ShellRoot {
                 anchors.centerIn: parent
                 spacing: 6
 
-                Modules.WindowTitle {}
+                Modules.Clock {}
             }
 
             Row {
@@ -59,7 +59,6 @@ ShellRoot {
                         Modules.Bluetooth {}
                         Modules.Network {}
                         Modules.Battery {}
-                        Modules.Clock {}
                     }
                 }
             }
