@@ -44,6 +44,10 @@ PopupWindow {
     implicitWidth: 320
     implicitHeight: 320
 
+    // Single source of truth for all morph animation timings to prevent
+    // coupling bugs where the timer unmaps the window mid-animation.
+    readonly property int morphDuration: 180
+
     // Keeps the window mapped for one animation cycle after `open` goes
     // false, so the collapse plays before the popup disappears.
     property bool closing: false
@@ -55,7 +59,7 @@ PopupWindow {
     }
     Timer {
         id: closeTimer
-        interval: 200
+        interval: root.morphDuration + 20
         onTriggered: root.closing = false
     }
 
@@ -72,10 +76,10 @@ PopupWindow {
         width: root.open ? 320 : (root.anchorItem ? root.anchorItem.width : 320)
         height: root.open ? 320 : (root.anchorItem ? root.anchorItem.height : 320)
         Behavior on width {
-            NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
+            NumberAnimation { duration: root.morphDuration; easing.type: Easing.OutCubic }
         }
         Behavior on height {
-            NumberAnimation { duration: 180; easing.type: Easing.OutCubic }
+            NumberAnimation { duration: root.morphDuration; easing.type: Easing.OutCubic }
         }
         color: Qt.rgba(Root.Theme.base.r, Root.Theme.base.g, Root.Theme.base.b, Root.Theme.pillAlpha)
         radius: Root.Theme.pillRadius
