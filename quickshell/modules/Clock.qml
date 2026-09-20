@@ -1,25 +1,28 @@
 // quickshell/modules/Clock.qml
 import QtQuick
 import ".." as Root
+import "../components" as Components
 
 Item {
     id: root
     property date now: new Date()
     property bool altFormat: false
 
-    implicitWidth: label.implicitWidth
-    implicitHeight: label.implicitHeight
+    implicitWidth: pill.implicitWidth
+    implicitHeight: pill.implicitHeight
 
-    Text {
-        id: label
+    Components.Pill {
+        id: pill
         anchors.fill: parent
-        text: root.altFormat
-            ? Qt.formatDateTime(root.now, "ddd dd MMM | HH:mm:ss")
-            : Qt.formatDateTime(root.now, "HH:mm:ss")
-        color: Root.Theme.bonewhite
-        font.family: Root.Theme.fontFamily
-        font.pixelSize: Root.Theme.fontSize
-        font.weight: Font.DemiBold
+        content: Text {
+            text: root.altFormat
+                ? Qt.formatDateTime(root.now, "ddd dd MMM | HH:mm:ss")
+                : Qt.formatDateTime(root.now, "HH:mm:ss")
+            color: Root.Theme.bonewhite
+            font.family: Root.Theme.fontFamily
+            font.pixelSize: Root.Theme.fontSize
+            font.weight: Font.DemiBold
+        }
     }
 
     CalendarPopup {
