@@ -41,9 +41,18 @@ PanelWindow {
         left: true
         right: true
     }
+    // Bar (shell.qml) anchors only top/left/right (no bottom), so its own
+    // `margins.bottom: 2` is inert — doesn't affect its screen position.
+    // Bar's visible strip: margins.top 4 + implicitHeight 26 = ends at y=30.
     margins {
-        top: 32
+        top: 30
     }
+    // Window spans the full screen width (no visual fill), but an unmasked
+    // layer-shell surface's input region defaults to its whole geometry —
+    // it would otherwise swallow clicks across the entire width of this
+    // band, not just over the visible `panel` below. Restrict input to
+    // just the rendered panel so the rest stays click-through.
+    mask: Region { item: panel }
     // `visible` stays true a beat past `open` going false so the shrink
     // animation below is actually visible before the window unmaps; see
     // `closing` below.
@@ -144,14 +153,17 @@ PanelWindow {
         onTriggered: root.closing = false
     }
 
-    // No `onClosed` handler: that was an xdg_popup "compositor dismissed
-    // me" event specific to PopupWindow and PanelWindow has no equivalent
-    // — layer-shell surfaces don't auto-dismiss on focus loss the way
+    // No `onClosed` handler: `closed` is declared on `WindowInterface`,
+    // which both `PopupWindow` and `PanelWindow` prototype from, so
+    // `PanelWindow` does have this signal — it's just not the layer-shell
+    // equivalent of xdg_popup's grab-loss "compositor forced a dismiss"
+    // event; layer-shell surfaces don't auto-dismiss on focus loss the way
     // xdg_popup grabs did. Not a regression: click-outside-to-close was
     // already established as infeasible and dropped in an earlier task.
-    // `visible: open || closing` above already gives full manual control;
-    // `dismissed()` is still emitted from the click-to-launch handler below
-    // and still listened to by Clock.qml.
+    // `visible: open || closing` above already gives full manual control
+    // (no stuck-open path either way), and the two real dismiss paths —
+    // IPC re-toggle and click-to-launch's `dismissed()` signal below,
+    // still listened to by Clock.qml — don't depend on `closed` at all.
 
     // Morphs between the clock pill's live size (collapsed) and the full
     // panel size (expanded). Anchored to the window's top-center so it
