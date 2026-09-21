@@ -90,6 +90,9 @@ assign [class="Spotify"] workspace 6
     # Start your launcher
     bindsym $mod+d exec $menu --show drun
 
+    # Toggle calendar island
+    bindsym $mod+c exec qs ipc call island toggle calendar
+
     # Toggle notification control center "https://github.com/ErikReider/SwayNotificationCenter?tab=readme-ov-file#other"
     bindsym $mod+Shift+n exec swaync-client -t -sw
 
