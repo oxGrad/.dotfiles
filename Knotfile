@@ -83,6 +83,16 @@ packages:
     condition:
       os: linux
 
+  # themes native Qt widgets (e.g. quickshell's tray right-click menu) to
+  # match Monokai; quickshell-bar.sh sets QT_QPA_PLATFORMTHEME=qt6ct
+  qt6ct:
+    target: ~/.config/qt6ct
+    tags: [sway]
+    condition:
+      os: linux
+    install:
+      dnf: qt6ct
+
   wofi:
     target: ~/.config/wofi
     tags: [sway]
