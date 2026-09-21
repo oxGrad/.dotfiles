@@ -1,6 +1,7 @@
 // quickshell/modules/island/CenterIsland.qml
 import QtQuick
 import Quickshell
+import Quickshell.Wayland
 import "../.." as Root
 
 PanelWindow {
@@ -26,6 +27,14 @@ PanelWindow {
     exclusiveZone: 0
     color: "transparent"
     focusable: open
+    // `focusable` alone only grants keyboard focus if the compositor's own
+    // focus-follows-mouse routing happens to already point at this surface
+    // (sway's default is `focus_follows_mouse yes` — confirmed live: an
+    // IPC-triggered open with the cursor elsewhere sent Escape to whatever
+    // window the cursor was actually over, not the island). Exclusive mode
+    // requests real seat keyboard focus from the compositor regardless of
+    // cursor position, which a keybind-triggered open (Task 8) needs.
+    WlrLayershell.keyboardFocus: root.open ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
     // Collapsed/peek: only the pill itself is clickable, the rest of this
     // fullscreen window is click-through to whatever is behind it (same
@@ -40,8 +49,6 @@ PanelWindow {
     // just the pill).
     mask: root.open ? null : maskRegion
     Region { id: maskRegion; item: island }
-
-    Keys.onEscapePressed: root.closeRequested()
 
     function toggle(requestedMode) {
         if (root.open && root.mode === requestedMode) {
@@ -64,6 +71,20 @@ PanelWindow {
         id: island
         anchors.horizontalCenter: parent.horizontalCenter
         y: Root.Config.barTopMargin
+
+        // ponytail: `Keys.onEscapePressed` used to live on `root` (the
+        // PanelWindow) — confirmed live (qs log) this silently never
+        // attached at all: "Could not attach Keys property to:
+        // CenterIsland_QMLTYPE_23 is not an Item". Qt Quick's `Keys`
+        // attached property only attaches to QQuickItem, and PanelWindow
+        // is Window-derived, not Item-derived. `island` is a real Item and
+        // an ancestor of whatever content grabs active focus (CalendarView
+        // via forceActiveFocus() below) — an unaccepted key event bubbles
+        // up the Item ancestor chain from the focused item, so attaching
+        // here is what actually receives it. WlrLayershell.keyboardFocus
+        // above is still required too: without real Wayland seat focus on
+        // this surface, no item inside it ever gets an event to bubble.
+        Keys.onEscapePressed: root.closeRequested()
 
         implicitWidth: root.mode === "calendar" ? Root.Config.calendarSize.width
                      : peeking && !root.open ? Root.Config.peekSize.width
