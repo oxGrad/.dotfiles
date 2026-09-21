@@ -1,6 +1,7 @@
 //@ pragma UseQApplication
 // quickshell/shell.qml
 import Quickshell
+import Quickshell.Io
 import QtQuick
 import "components" as Components
 import "modules" as Modules
@@ -61,6 +62,22 @@ ShellRoot {
                         Modules.Network {}
                         Modules.Battery {}
                     }
+                }
+            }
+
+            property bool launcherOpen: false
+
+            Modules.LauncherPopup {
+                id: launcher
+                anchorItem: centerSection
+                open: launcherOpen
+                onDismissed: launcherOpen = false
+            }
+
+            IpcHandler {
+                target: "launcher"
+                function toggle() {
+                    launcherOpen = !launcherOpen
                 }
             }
         }
