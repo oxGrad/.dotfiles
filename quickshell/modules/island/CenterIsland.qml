@@ -31,7 +31,15 @@ PanelWindow {
     // fullscreen window is click-through to whatever is behind it (same
     // technique LauncherPopup.qml uses). Open: the whole window becomes
     // clickable so clickCatcher below can see, and close on, outside clicks.
-    mask: root.open ? null : Region { item: island }
+    // ponytail: was `mask: root.open ? null : Region { item: island }` —
+    // invalid QML (an inline object declaration can't be a ternary branch;
+    // confirmed via `qs` parse error "Expected token ','" at the `{`).
+    // Never actually parsed until Task 7 instantiated this component for
+    // the first time. Named Region + id reference preserves the exact
+    // same intended behavior (open: unmasked; collapsed/peek: masked to
+    // just the pill).
+    mask: root.open ? null : maskRegion
+    Region { id: maskRegion; item: island }
 
     Keys.onEscapePressed: root.closeRequested()
 

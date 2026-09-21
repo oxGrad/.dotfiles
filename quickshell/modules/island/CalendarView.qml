@@ -28,7 +28,13 @@ Column {
 
     Keys.onLeftPressed: root.shiftMonth(-1)
     Keys.onRightPressed: root.shiftMonth(1)
-    Keys.onHomePressed: root.goToday()
+    // ponytail: `Keys.onHomePressed` isn't a real Qt Quick Keys signal (no
+    // convenience handler exists for Home — confirmed via `qs` parse error
+    // "Cannot assign to non-existent property"). Never actually parsed
+    // until Task 7 loaded this component for the first time. Generic
+    // Keys.onPressed + key check preserves the exact same intended
+    // behavior (Home jumps the calendar back to today).
+    Keys.onPressed: (event) => { if (event.key === Qt.Key_Home) root.goToday() }
 
     Text {
         text: Qt.formatDate(root.viewDate, "dddd, d MMMM yyyy")

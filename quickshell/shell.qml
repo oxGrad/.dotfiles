@@ -5,8 +5,49 @@ import Quickshell.Io
 import QtQuick
 import "components" as Components
 import "modules" as Modules
+import "modules/island" as Island
 
 ShellRoot {
+    property string islandMode: "collapsed"
+    property bool islandOpen: false
+
+    // The only two places that write islandMode/islandOpen — both the
+    // IpcHandler below and every CenterIsland instance's signals (Step 2)
+    // funnel through these, so "closed" always means the same thing
+    // (mode reset to collapsed) regardless of which path triggered it.
+    function openIsland(mode) {
+        islandOpen = true
+        islandMode = mode
+    }
+    function closeIsland() {
+        islandOpen = false
+        islandMode = "collapsed"
+    }
+
+    IpcHandler {
+        target: "island"
+        function toggle(mode: string): void {
+            if (islandOpen && islandMode === mode) closeIsland()
+            else openIsland(mode)
+        }
+        function close(): void {
+            closeIsland()
+        }
+    }
+
+    Variants {
+        model: Quickshell.screens
+
+        Island.CenterIsland {
+            required property var modelData
+            screen: modelData
+            mode: islandMode
+            open: islandOpen
+            onOpenRequested: (requestedMode) => openIsland(requestedMode)
+            onCloseRequested: closeIsland()
+        }
+    }
+
     Variants {
         model: Quickshell.screens
 
