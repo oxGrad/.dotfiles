@@ -9,7 +9,7 @@ PanelWindow {
     property var anchorItem: null
     property bool open: false
     // Emitted when an entry is launched (click-to-launch below). `open` is
-    // externally bound (Clock.qml: `open: root.launcherOpen`); writing to
+    // externally bound (shell.qml: `open: root.launcherOpen`); writing to
     // it from in here would sever that binding permanently (QML: assigning
     // to a property from inside the component disconnects any external
     // binding on it), so callers react to this signal and set their own
@@ -163,7 +163,7 @@ PanelWindow {
     // `visible: open || closing` above already gives full manual control
     // (no stuck-open path either way), and the two real dismiss paths —
     // IPC re-toggle and click-to-launch's `dismissed()` signal below,
-    // still listened to by Clock.qml — don't depend on `closed` at all.
+    // are handled by shell.qml — don't depend on `closed` at all.
 
     // Morphs between the clock pill's live size (collapsed) and the full
     // panel size (expanded). Anchored to the window's top-center so it

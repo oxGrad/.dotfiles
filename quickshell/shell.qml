@@ -38,14 +38,6 @@ ShellRoot {
             }
 
             Row {
-                id: centerSection
-                anchors.centerIn: parent
-                spacing: 6
-
-                Modules.Clock {}
-            }
-
-            Row {
                 id: rightSection
                 anchors.right: parent.right
                 anchors.verticalCenter: parent.verticalCenter
@@ -69,7 +61,6 @@ ShellRoot {
 
             Modules.LauncherPopup {
                 id: launcher
-                anchorItem: centerSection
                 open: launcherOpen
                 onDismissed: launcherOpen = false
             }
