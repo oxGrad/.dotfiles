@@ -31,6 +31,26 @@ PanelWindow {
     signal openRequested(string requestedMode)
     signal closeRequested()
 
+    // `open` and `mode` both flip to their closed values synchronously in
+    // the same shell.qml call (closeIsland()), so an `active: ... ||
+    // root.open` condition on the Loader below never gets a rendered frame
+    // where it still holds true — verified live: no fade ever played.
+    // `closing` outlives that synchronous flip for one animation cycle,
+    // the same pattern (and reason) LauncherPopup.qml already uses for
+    // exactly this problem (`visible: open || closing`).
+    property bool closing: false
+    onOpenChanged: {
+        if (!open) {
+            closing = true
+            closeAnimTimer.restart()
+        }
+    }
+    Timer {
+        id: closeAnimTimer
+        interval: Root.Config.contentFadeOutDuration + 20
+        onTriggered: root.closing = false
+    }
+
     anchors { top: true; bottom: true; left: true; right: true }
     // -1, not 0: on a wlr-layer-shell surface, `exclusiveZone: 0` means
     // "respect other surfaces' exclusive zones" (not "reserve none"). This
@@ -194,16 +214,15 @@ PanelWindow {
             anchors.fill: parent
             anchors.topMargin: root.open ? 70 : 0
             anchors.margins: root.open ? 16 : 0
-            // `|| root.open`: closeIsland() (shell.qml) sets `open: false`
-            // and `mode: "collapsed"` in the same tick. Without this,
-            // `active` would go false immediately, destroying CalendarView
-            // instantly — the opacity fade-out below would run on an
-            // already-empty Loader and never actually be visible. Keeping
-            // the content alive while `open` is still animating down to
-            // false (it's what drives the fade) lets the close mirror the
-            // open, per spec; `mode` resetting a tick later no longer tears
-            // the Loader down before that animation plays.
-            active: root.mode === "calendar" || root.open
+            // `|| root.closing`: closeIsland() (shell.qml) sets `open` and
+            // `mode` to their closed values in the same synchronous call,
+            // so `|| root.open` alone (an earlier attempt at this fix)
+            // never actually held true for a rendered frame — confirmed
+            // live, no fade ever played. `root.closing` (above) outlives
+            // that synchronous flip for one animation cycle, keeping
+            // CalendarView alive long enough for the opacity fade-out
+            // below to actually be visible before the Loader tears it down.
+            active: root.mode === "calendar" || root.closing
             sourceComponent: CalendarView {}
             opacity: root.open ? 1 : 0
 
