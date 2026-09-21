@@ -6,7 +6,15 @@ import "../.." as Root
 
 PanelWindow {
     id: root
-    required property var screen
+    // No `required property var screen` here: PanelWindow (via
+    // WindowInterface) already declares a real `screen` property.
+    // Redeclaring it would shadow that real property with a same-named
+    // local one, so shell.qml's `screen: modelData` binding would set the
+    // shadow instead of the compositor-assigned screen the window actually
+    // needs — works by luck on a single-monitor setup, breaks silently on
+    // multi-monitor. `screen: modelData` in shell.qml already binds
+    // straight onto the real property once this shadow is gone (same
+    // pattern the bar's own PanelWindow there already uses correctly).
     // `mode`/`open` are meant to be bound from shell.qml's shared state
     // (Task 7: `mode: islandMode; open: islandOpen`), the same one-way-down
     // direction shell.qml already uses for `Modules.LauncherPopup.open` in
@@ -17,23 +25,42 @@ PanelWindow {
     // So every user-initiated close/open in here goes out through a signal
     // instead of assigning to `open`/`mode` directly; shell.qml's handlers
     // for these signals own the actual writes to its shared state.
-    property string mode: "collapsed"     // "collapsed" | "peek" | "calendar"
+    property string mode: "collapsed"     // "collapsed" | "calendar" (peek is tracked separately via `island.peeking`, not a mode value)
     property bool open: false
 
     signal openRequested(string requestedMode)
     signal closeRequested()
 
     anchors { top: true; bottom: true; left: true; right: true }
-    exclusiveZone: 0
+    // -1, not 0: on a wlr-layer-shell surface, `exclusiveZone: 0` means
+    // "respect other surfaces' exclusive zones" (not "reserve none"). This
+    // fullscreen overlay window sat below the bar's own auto-computed
+    // exclusive zone (margins.top 4 + implicitHeight 26 = 30px) as a
+    // result, pushing the whole window's origin down to y=30 — the actual
+    // root cause of the collapsed pill sitting ~30px lower than the old
+    // clock pill. -1 means "don't reserve space AND ignore others'
+    // reservations", same as LauncherPopup.qml's own overlay window uses,
+    // for the same reason: transient overlay, not a dock.
+    exclusiveZone: -1
     color: "transparent"
-    focusable: open
-    // `focusable` alone only grants keyboard focus if the compositor's own
-    // focus-follows-mouse routing happens to already point at this surface
-    // (sway's default is `focus_follows_mouse yes` — confirmed live: an
-    // IPC-triggered open with the cursor elsewhere sent Escape to whatever
-    // window the cursor was actually over, not the island). Exclusive mode
-    // requests real seat keyboard focus from the compositor regardless of
-    // cursor position, which a keybind-triggered open (Task 8) needs.
+    // Bar (shell.qml) is also layer Top with no mask, so its full-width
+    // unmasked strip would otherwise intercept clicks/hover meant for the
+    // pill once the pill sits back in that same vertical band (per the
+    // exclusiveZone fix above). Overlay ranks above Top, so the island
+    // wins input in the overlap.
+    WlrLayershell.layer: WlrLayer.Overlay
+    // `WlrLayershell.keyboardFocus` requests real Wayland seat keyboard
+    // focus from the compositor regardless of cursor position, which a
+    // keybind-triggered open (Task 8) needs — sway's default
+    // `focus_follows_mouse yes` means an IPC-triggered open with the
+    // cursor elsewhere would otherwise send Escape to whatever window the
+    // cursor was actually over, not the island (confirmed live). A
+    // separate `focusable: open` binding used to sit alongside this one,
+    // but `focusable` and `WlrLayershell.keyboardFocus` are two QML
+    // bindings onto the same backing field (per Quickshell's qmltypes:
+    // both `notify: keyboardFocusChanged`) — having both bound raced two
+    // writers over one piece of state, undefined which won, and is a
+    // plausible contributor to the still-open Escape-key bug.
     WlrLayershell.keyboardFocus: root.open ? WlrKeyboardFocus.Exclusive : WlrKeyboardFocus.None
 
     // Collapsed/peek: only the pill itself is clickable, the rest of this
@@ -70,7 +97,15 @@ PanelWindow {
     Rectangle {
         id: island
         anchors.horizontalCenter: parent.horizontalCenter
-        y: Root.Config.barTopMargin
+        // Collapsed/peek: center within the bar's own height band, matching
+        // how every other bar pill is `anchors.verticalCenter`-ed there —
+        // just sitting at `barTopMargin` (the pill's own top) left it
+        // sitting visibly lower than the rest of the bar whenever the
+        // pill's height doesn't exactly equal the bar's height (collapsed
+        // is 22px inside a 26px band). Open: flush at the top margin so the
+        // panel grows straight down from the bar line, per spec.
+        y: root.open ? Root.Config.barTopMargin
+                     : Root.Config.barTopMargin + (Root.Config.barHeight - height) / 2
 
         // ponytail: `Keys.onEscapePressed` used to live on `root` (the
         // PanelWindow) — confirmed live (qs log) this silently never
@@ -122,7 +157,15 @@ PanelWindow {
         // has stayed 150ms; it drops immediately on hover-out.
         HoverHandler {
             id: hover
-            enabled: !root.open
+            // No `enabled: !root.open` here: if the cursor was over the
+            // pill when it opened (peeking == true) and then moved away
+            // while `open` stayed true, a disabled handler never fires
+            // `onHoveredChanged`, so `peeking` got stuck true — the
+            // collapsed pill would reappear at peek size until re-hovered.
+            // The `peeking && !root.open` guard on implicitWidth/Height
+            // below already correctly gates peek sizing to the collapsed
+            // state on its own; tracking real hover at all times (including
+            // while open) is strictly more correct and needs nothing else.
             onHoveredChanged: {
                 if (hovered) hoverDebounce.restart()
                 else { hoverDebounce.stop(); island.peeking = false }
@@ -151,7 +194,16 @@ PanelWindow {
             anchors.fill: parent
             anchors.topMargin: root.open ? 70 : 0
             anchors.margins: root.open ? 16 : 0
-            active: root.mode === "calendar"
+            // `|| root.open`: closeIsland() (shell.qml) sets `open: false`
+            // and `mode: "collapsed"` in the same tick. Without this,
+            // `active` would go false immediately, destroying CalendarView
+            // instantly — the opacity fade-out below would run on an
+            // already-empty Loader and never actually be visible. Keeping
+            // the content alive while `open` is still animating down to
+            // false (it's what drives the fade) lets the close mirror the
+            // open, per spec; `mode` resetting a tick later no longer tears
+            // the Loader down before that animation plays.
+            active: root.mode === "calendar" || root.open
             sourceComponent: CalendarView {}
             opacity: root.open ? 1 : 0
 

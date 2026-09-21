@@ -60,7 +60,7 @@ ShellRoot {
                 left: true
                 right: true
             }
-            implicitHeight: 26
+            implicitHeight: Config.barHeight
             margins {
                 top: 4
                 right: 8

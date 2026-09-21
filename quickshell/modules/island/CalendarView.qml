@@ -79,10 +79,17 @@ Column {
             delegate: Text {
                 required property var modelData
                 width: 32
+                // opacity, not `visible`: Grid (a Positioner) excludes
+                // invisible children from layout entirely — confirmed live
+                // (a `visible: !!modelData` test collapsed the leading
+                // blank cells and shifted every day into the wrong weekday
+                // column). Opacity hides the cell without touching layout,
+                // achieving the same "no color literal" goal the old
+                // `color: "transparent"` branch existed for.
+                opacity: modelData ? 1 : 0
                 horizontalAlignment: Text.AlignHCenter
                 text: modelData ? modelData.toString() : ""
                 color: {
-                    if (!modelData) return "transparent"
                     const today = new Date()
                     const isToday = modelData === today.getDate()
                         && root.viewDate.getMonth() === today.getMonth()
