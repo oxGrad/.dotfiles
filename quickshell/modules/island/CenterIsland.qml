@@ -6,8 +6,21 @@ import "../.." as Root
 PanelWindow {
     id: root
     required property var screen
+    // `mode`/`open` are meant to be bound from shell.qml's shared state
+    // (Task 7: `mode: islandMode; open: islandOpen`), the same one-way-down
+    // direction shell.qml already uses for `Modules.LauncherPopup.open` in
+    // Task 2. Writing to a property from inside the component that also has
+    // an external binding on it permanently severs that binding on first
+    // write — this file's own LauncherPopup.qml documents this exact
+    // footgun (see its `dismissed()` signal and the comment at its top).
+    // So every user-initiated close/open in here goes out through a signal
+    // instead of assigning to `open`/`mode` directly; shell.qml's handlers
+    // for these signals own the actual writes to its shared state.
     property string mode: "collapsed"     // "collapsed" | "peek" | "calendar"
     property bool open: false
+
+    signal openRequested(string requestedMode)
+    signal closeRequested()
 
     anchors { top: true; bottom: true; left: true; right: true }
     exclusiveZone: 0
@@ -20,19 +33,13 @@ PanelWindow {
     // clickable so clickCatcher below can see, and close on, outside clicks.
     mask: root.open ? null : Region { item: island }
 
-    Keys.onEscapePressed: root.close()
-
-    function close() {
-        root.open = false
-        root.mode = "collapsed"
-    }
+    Keys.onEscapePressed: root.closeRequested()
 
     function toggle(requestedMode) {
         if (root.open && root.mode === requestedMode) {
-            root.close()
+            root.closeRequested()
         } else {
-            root.open = true
-            root.mode = requestedMode
+            root.openRequested(requestedMode)
         }
     }
 
@@ -42,7 +49,7 @@ PanelWindow {
     MouseArea {
         anchors.fill: parent
         enabled: root.open
-        onClicked: root.close()
+        onClicked: root.closeRequested()
     }
 
     Rectangle {
