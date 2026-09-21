@@ -29,6 +29,7 @@ output * bg ~/.dotfiles/assets/1363709.png fill
 # output * bg ~/.dotfiles/assets/gargantua-black-5200x3250-9621.jpg fill
 
 default_border pixel 0
+default_floating_border pixel 0
 gaps inner 8
 # gaps outer 8
 
@@ -248,6 +249,7 @@ bindsym $mod+r mode "resize"
 # Read `man 5 sway-bar` for more information about this section.
 bar {
     swaybar_command /home/graditya/.config/sway/scripts/quickshell-bar.sh
+    # swaybar_command waybar
     position top
 
     # When the status_command prints a new line to stdout, swaybar updates.
