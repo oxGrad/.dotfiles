@@ -127,7 +127,7 @@
   // waybar modules.
   "group/system": {
     "orientation": "horizontal",
-    "modules": ["backlight", "pulseaudio", "bluetooth", "network", "battery", "clock"]
+    "modules": ["backlight", "pulseaudio", "bluetooth", "network", "battery"]
   },
   // Group Hardware
   "group/hardware": {

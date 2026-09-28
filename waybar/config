@@ -16,7 +16,7 @@
     "mpd"
   ],
   "modules-center": [
-    "sway/window"
+    "clock"
   ],
   "modules-right": [
     // "custom/keyboard-layout",

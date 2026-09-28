@@ -73,20 +73,21 @@ window#waybar {
 }
 
 /* -----------------------------------------------------------------------------
- * Center island — window title
+ * Center island — clock
  * -------------------------------------------------------------------------- */
 
-#window {
+#clock {
   background-color: alpha(@base, 0.92);
   border-radius: 13px;
   margin: 2px 0;
   padding: 0 14px;
-  color: @subtext1;
+  color: @bonewhite;
   font-weight: 400;
+  transition: padding 0.15s ease;
 }
 
-window#waybar.empty #window {
-  background-color: transparent;
+#clock:hover {
+  padding: 0 44px;
 }
 
 /* -----------------------------------------------------------------------------
@@ -122,7 +123,7 @@ window#waybar.empty #window {
 }
 
 /* -----------------------------------------------------------------------------
- * Right island — one continuous capsule: backlight … clock
+ * Right island — one continuous capsule: backlight … battery
  * -------------------------------------------------------------------------- */
 
 /* Right island lives on the group container, not on the individual
@@ -149,8 +150,7 @@ window#waybar.empty #window {
 #battery,
 #pulseaudio,
 #bluetooth,
-#network,
-#clock {
+#network {
   padding: 0 6px;
 }
 
