@@ -55,6 +55,9 @@ export NODE_OPTIONS=--max_old_space_size=4096
 # Nix profile (special handling - keep separate)
 if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
+# User functions
+[[ -f ~/.zsh_functions ]] && source ~/.zsh_functions
+
 # User aliases
 [[ -f ~/.zsh_aliases ]] && source ~/.zsh_aliases
 

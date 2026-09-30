@@ -1,0 +1,4 @@
+# Shell functions (sourced from .zshrc)
+
+# buildah
+brun() { buildah run "$ctr" -- "$@"; }

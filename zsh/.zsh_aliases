@@ -18,7 +18,6 @@ alias bi="brew install"
 
 # buildah
 alias bud="buildah bud"
-brun() { buildah run "$ctr" -- "$@"; }
 
 # claude
 alias cw='CLAUDE_CONFIG_DIR=~/.claude-work claude'
