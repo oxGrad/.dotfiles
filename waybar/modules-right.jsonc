@@ -1,7 +1,7 @@
 {
   "mpris": {
     "player": "spotify",
-    "format": "{artist} — {title}",
+    "format": "{artist} - {title}",
     "artist-len": 20,
     "title-len": 30,
     "ellipsis": "…",
