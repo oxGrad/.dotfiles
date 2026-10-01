@@ -21,6 +21,7 @@
   "modules-right": [
     // "custom/keyboard-layout",
     // "group/hardware",
+    "group/spotify",
     "tray",
     "group/system"
     // "idle_inhibitor",

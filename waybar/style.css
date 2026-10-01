@@ -154,6 +154,23 @@ window#waybar {
   padding: 0 6px;
 }
 
+#spotify {
+  background-color: alpha(@base, 0.92);
+  border-radius: 13px;
+  margin: 2px 8px 2px 0;
+  padding: 0 6px;
+}
+
+#mpris,
+#custom-spotify-prev,
+#custom-spotify-next {
+  padding: 0 6px;
+}
+
+#mpris.paused {
+  color: @overlay0;
+}
+
 #tray {
   background-color: alpha(@base, 0.92);
   border-radius: 13px;

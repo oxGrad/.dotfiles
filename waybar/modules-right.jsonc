@@ -1,4 +1,28 @@
 {
+  "mpris": {
+    "player": "spotify",
+    "format": "{artist} — {title}",
+    "artist-len": 20,
+    "title-len": 30,
+    "ellipsis": "…",
+    "on-click": "playerctl -p spotify play-pause"
+  },
+  "custom/spotify-prev": {
+    "format": "󰒮",
+    "tooltip": false,
+    "on-click": "playerctl -p spotify previous"
+  },
+  "custom/spotify-next": {
+    "format": "󰒭",
+    "tooltip": false,
+    "on-click": "playerctl -p spotify next"
+  },
+  // Prev/next slide out on hover; mpris is the always-visible drawer leader
+  "group/spotify": {
+    "orientation": "horizontal",
+    "drawer": { "transition-duration": 300 },
+    "modules": ["mpris", "custom/spotify-prev", "custom/spotify-next"]
+  },
   "tray": {
     "icon-size": 14,
     "spacing": 5
