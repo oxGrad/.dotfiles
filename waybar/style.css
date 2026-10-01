@@ -154,17 +154,39 @@ window#waybar {
   padding: 0 6px;
 }
 
-#spotify {
+/* Pill lives on the children, not the group: when spotify closes mpris hides,
+ * but GTK keeps an empty group (and the collapsed drawer revealer) 1px wide,
+ * which would show as a sliver. So prev/next only get a background while the
+ * drawer is open (hover), and mpris squares off its right side to join them. */
+#mpris,
+#spotify:hover #custom-spotify-prev,
+#spotify:hover #custom-spotify-next {
   background-color: alpha(@base, 0.92);
-  border-radius: 13px;
-  margin: 2px 8px 2px 0;
-  padding: 0 6px;
 }
 
 #mpris,
 #custom-spotify-prev,
 #custom-spotify-next {
-  padding: 0 6px;
+  margin: 2px 0;
+  transition: background-color 300ms;
+}
+
+#mpris {
+  border-radius: 13px;
+  padding: 0 12px;
+}
+
+#spotify:hover #mpris {
+  border-radius: 13px 0 0 13px;
+}
+
+#custom-spotify-prev {
+  padding: 0 6px 0 0;
+}
+
+#custom-spotify-next {
+  border-radius: 0 13px 13px 0;
+  padding: 0 12px 0 6px;
 }
 
 #mpris.paused {
@@ -174,7 +196,7 @@ window#waybar {
 #tray {
   background-color: alpha(@base, 0.92);
   border-radius: 13px;
-  margin: 2px 8px 2px 0;
+  margin: 2px 8px;
 }
 
 /* -----------------------------------------------------------------------------
