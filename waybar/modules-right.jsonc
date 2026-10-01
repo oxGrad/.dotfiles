@@ -32,15 +32,13 @@
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,
-      "weeks-pos": "right",
       "on-scroll": 1,
       "on-click-right": "mode",
       "format": {
-        "months": "<span color='#ae81ff'><b>{}</b></span>", // Monokai mauve
-        "days": "<span color='#66d9ef'><b>{}</b></span>", // Monokai sky
-        "weeks": "<span color='#a6e22e'><b>W{}</b></span>", // Monokai green
+        "months": "<span color='#faf9f6'><b>{}</b></span>", // bonewhite
+        "days": "<span color='#faf9f6'><b>{}</b></span>", // bonewhite
         "weekdays": "<span color='#ffd56c'><b>{}</b></span>", // Monokai peach
-        "today": "<span background='#f92672' color='#272822'><b><u>{}</u></b></span>" // Monokai pink with dark text
+        "today": "<span background='#f92672' color='#faf9f6'><b><u>{}</u></b></span>" // Monokai pink with bonewhite
       }
     },
     "actions": {
