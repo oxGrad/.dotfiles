@@ -193,6 +193,17 @@ window#waybar {
   color: @overlay0;
 }
 
+#custom-lyrics {
+  background-color: alpha(@base, 0.92);
+  border-radius: 13px;
+  margin: 2px 0;
+  padding: 6px 14px;
+}
+
+#custom-lyrics.missing {
+  color: @overlay0;
+}
+
 #tray {
   background-color: alpha(@base, 0.92);
   border-radius: 13px;

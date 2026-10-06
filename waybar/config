@@ -1,3 +1,4 @@
+[
 {
   "layer": "top",
   "position": "top",
@@ -35,4 +36,27 @@
     "~/.config/waybar/modules-right.jsonc"
   ]
 
+},
+
+// Lyrics card: a second, click-through bar that floats under the main one
+// without reserving space, so windows aren't pushed down. Hidden until
+// toggled with $mod+y (sway/config).
+{
+  "name": "lyrics",
+  "layer": "top",
+  "position": "top",
+  "exclusive": false,
+  "passthrough": true,
+  // Right margin lines the card up with the spotify pill's right edge.
+  // ponytail: fixed offset, re-tune if the tray/system islands change width
+  "margin": "0 192 0 8",
+  "modules-right": ["custom/lyrics"],
+  "custom/lyrics": {
+    "exec": "~/.config/waybar/scripts/lyrics.py",
+    "return-type": "json",
+    "interval": 1,
+    "signal": 8,
+    "justify": "left"
+  }
 }
+]
