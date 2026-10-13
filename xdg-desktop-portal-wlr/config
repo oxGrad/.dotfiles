@@ -1,3 +1,3 @@
 [screencast]
-chooser_type=dmenu
-chooser_cmd=slurp -f %o -or
+chooser_type=simple
+chooser_cmd=~/.config/xdg-desktop-portal-wlr/chooser.sh
