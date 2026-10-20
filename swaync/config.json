@@ -149,7 +149,7 @@
         {
           "label": "󰂯",
           "type": "normal",
-          "command": "sh -c 'swaync-client --close-panel; ~/.config/waybar/scripts/bt-menu.sh'"
+          "command": "sh -c 'swaync-client --close-panel; blueman-manager'"
         },
         {
           "label": "󰖔",
