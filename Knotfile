@@ -93,6 +93,13 @@ packages:
     install:
       dnf: qt6ct
 
+  # GTK3 apps (blueman, pavucontrol) — Monokai overrides importing waybar/colors.css
+  gtk:
+    target: ~/.config/gtk-3.0
+    tags: [sway]
+    condition:
+      os: linux
+
   wofi:
     target: ~/.config/wofi
     tags: [sway]

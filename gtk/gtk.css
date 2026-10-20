@@ -1,0 +1,73 @@
+/* Monokai overrides on top of Adwaita-dark for GTK3 apps (blueman, pavucontrol…).
+   Same rule as waybar: neutral bonewhite text, accent color only signals state. */
+@import "../waybar/colors.css";
+
+/* ghostty's default background (ghostty/config sets no color), so GTK windows match the terminal */
+@define-color term_bg #282c34;
+
+/* translucent like the terminals (0.7); inner surfaces stay clear so alpha doesn't stack */
+window, .background, dialog { background-color: alpha(@term_bg, 0.7); color: @bonewhite; }
+
+headerbar, menubar, toolbar, .toolbar, statusbar, .titlebar {
+  background-image: none;
+  background-color: transparent;
+  color: @bonewhite;
+  border-color: @surface0;
+  box-shadow: none;
+}
+
+menu, .menu, .context-menu, popover, popover.background, tooltip, tooltip.background {
+  background-color: alpha(@base, 0.92);
+  color: @bonewhite;
+  border: 1px solid @surface0;
+}
+menu menuitem:hover, .menu menuitem:hover, menubar > menuitem:hover {
+  background-color: @surface1;
+  color: @bonewhite;
+}
+
+.view, treeview, iconview, textview text, list, row, scrolledwindow, viewport {
+  background-color: transparent;
+  color: @bonewhite;
+}
+
+/* selection is neutral, not blue */
+.view:selected, treeview:selected, row:selected, selection,
+.view:selected:focus, treeview:selected:focus, row:selected:focus {
+  background-color: alpha(@bonewhite, 0.1);
+  color: @bonewhite;
+}
+
+button {
+  background-image: none;
+  background-color: @surface0;
+  color: @bonewhite;
+  border-color: @surface1;
+  box-shadow: none;
+  text-shadow: none;
+}
+button:hover { background-color: @surface1; }
+button:active, button:checked { background-color: @surface2; }
+button:disabled, button:disabled label { background-color: transparent; color: @overlay0; }
+toolbar button, headerbar button, .toolbar button { background-color: transparent; border-color: transparent; }
+toolbar button:hover, headerbar button:hover { background-color: @surface0; }
+
+entry, spinbutton {
+  background-color: @surface0;
+  color: @bonewhite;
+  border-color: @surface1;
+  box-shadow: none;
+}
+entry:focus { border-color: @overlay0; }
+
+/* state colors */
+switch { background-color: @surface1; border-color: @surface2; }
+switch:checked { background-color: @green; color: @base; }
+switch slider { background-image: none; background-color: @bonewhite; border-color: @surface2; }
+progressbar progress, levelbar block.filled, scale highlight { background-color: @green; border-color: @green; }
+check:checked, radio:checked { background-color: @green; color: @base; border-color: @green; }
+
+scrollbar { background-color: transparent; border: none; }
+scrollbar slider { background-color: @surface2; }
+
+separator { background-color: @surface0; }
