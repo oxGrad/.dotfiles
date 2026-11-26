@@ -10,8 +10,8 @@ exec_always --no-startup-id $term
 exec --no-startup-id gsettings set org.blueman.general plugin-list "['!StatusIcon', '!StatusNotifierItem']"
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
-set $mod Mod1
+# Logo (Super) key. Alt (Mod1) stays free for apps: zsh word jumps, LazyVim Alt+j/k.
+set $mod Mod4
 # Home row direction keys, like vim
 set $left h
 set $down j
