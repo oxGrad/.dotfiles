@@ -9,4 +9,4 @@ install-fonts:
 	sudo fc-cache -v
 
 swaylist:
-	swaymsg -t get_tree | jq -c '.nodes[].nodes[].nodes[] | {id, app_id, name}'\n
+	swaymsg -t get_tree | jq -c '.nodes[].nodes[].nodes[] | {id, app_id, name}'
