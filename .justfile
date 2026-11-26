@@ -4,5 +4,5 @@ _default:
   @just --choose
 
 install:
-  sudo dnf install qt6ct
+  sudo dnf install neovim zsh wofi fontawesome-fonts-all qt6ct blueman
 

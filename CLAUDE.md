@@ -17,7 +17,7 @@ Some packages are OS-conditional (e.g. `sway`, `waybar`, `wlogout`, `wofi`, `swa
 ## Package Installation
 
 ```
-make all             # update + upgrade + install base packages
+just install         # install base packages (Fedora, dnf)
 make install-fonts   # copy fonts from assets/fonts/ to /usr/local/share/fonts/
 make clean-nvim      # wipe neovim state/cache (useful when plugins break)
 ```
