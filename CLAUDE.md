@@ -52,15 +52,6 @@ Everything is themed **Monokai** (dark base `#272822`, text `bonewhite #faf9f6`)
 
 Font is JetBrains Mono / JetBrainsMono Nerd Font across terminals, waybar, and prompt.
 
-## Keyboard & Modifiers
-
-`lily58.layout.json` is a VIA layout for a Lily58 split keyboard (load it in VIA). Keybindings across tools are designed around it:
-
-- Thumbs: `Alt · NAV · Super · Space | Enter · Bksp · SYM · Del`. NAV and SYM are hold layers (`MO`); the inner bottom keys are mouse-layer toggle (left) and `=` (right).
-- Home-row left pinky is Ctrl on hold / Esc on tap; Shift is bottom-left.
-- sway `$mod` is Super (`Mod4`) so Alt stays free for zsh and LazyVim (`Alt+b/f/d`, `Alt+j/k`).
-- tmux prefix is the default `C-b` (home-row Ctrl + B, both left hand).
-
 ## Zsh Config Split
 
 The zsh config is split across three files that source each other in order:
