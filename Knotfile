@@ -46,6 +46,13 @@ packages:
     install:
       autoResolve: true
 
+  # linux-only: macOS reads ~/Library/Application Support/lazygit unless XDG_CONFIG_HOME is set
+  lazygit:
+    target: ~/.config/lazygit
+    tags: [terminal]
+    condition:
+      os: linux
+
   # zellij:
   #   target: ~/.config/zellij
   #   tags: [terminal]

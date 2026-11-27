@@ -38,6 +38,7 @@ Each directory maps to a tool's config and is symlinked by knot:
 | `sway/`     | `~/.config/sway`    | Linux WM (Wayland)                    |
 | `waybar/`   | `~/.config/waybar`  | status bar for sway                   |
 | `swaync/`   | `~/.config/swaync`  | notification center                   |
+| `lazygit/`  | `~/.config/lazygit` | Linux-only (see Knotfile comment)     |
 
 ## Theme & Design System
 
@@ -62,6 +63,7 @@ Font is JetBrains Mono / JetBrainsMono Nerd Font across terminals, waybar, and p
 - sway `$mod` is Super (`Mod4`) so Alt stays free for zsh and LazyVim (`Alt+b/f/d`, `Alt+j/k`).
 - sway workspaces: Super + `a s d f g` / `q w e r t` = 1–10 (add Shift to move a window), the same keys as the tmux window bindings. Number keys are unbound in both, so it all works on a Corne. The defaults those letters displaced: launcher Super+p, fullscreen Super+m, kill Super+x, focus parent Super+u, split toggle Super+i, layout cycle Super+o, resize Super+z.
 - tmux prefix is the default `C-b` (home-row Ctrl + B, both left hand); windows 1–10 on prefix + `a s d f g` / `q w e r t`.
+- lazygit panels: Alt + `a s d f g` = status, files, branches, commits, stash (plain letters are lazygit actions, so Alt); number keys no longer jump.
 
 ## Zsh Config Split
 
