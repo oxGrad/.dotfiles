@@ -1,0 +1,6 @@
+# Panels on Alt + the same letters as tmux windows and sway workspaces:
+# a s d f g = status, files, branches, commits, stash. Plain letters are
+# lazygit actions (a stage all, s stash, d remove, f fetch, g reset), so Alt it is.
+keybinding:
+  universal:
+    jumpToBlock: ["<alt+a>", "<alt+s>", "<alt+d>", "<alt+f>", "<alt+g>"]
