@@ -17,9 +17,9 @@
  */
 
 // Luna the keyboard pet, adapted for the Lily58 v2 keymap: sprites unchanged; logic
-// rewritten for the right (slave) half, which only gets WPM and mods from the left
-// (SPLIT_WPM_ENABLE, SPLIT_MODS_ENABLE). No jump (needs key events); bark on Shift
-// instead of Caps Lock.
+// rewritten. Runs on the USB (left) half, which has WPM, mods and key events locally.
+// Jump on Space via luna_space() (keymap.c); bark on Shift instead of Caps Lock.
+// Sleep is handled in keymap.c (stop drawing when idle).
 
 #include QMK_KEYBOARD_H
 
@@ -80,9 +80,23 @@ static const char PROGMEM sneak[2][ANIM_SIZE] = {// 'sneak1', 32x22px
                                                      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x40, 0x40, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0xa0, 0x20, 0x40, 0x80, 0xc0, 0x20, 0x40, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3e, 0x41, 0xf0, 0x04, 0x02, 0x02, 0x02, 0x03, 0x02, 0x02, 0x02, 0x04, 0x04, 0x02, 0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x40, 0x40, 0x55, 0x82, 0x7c, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, 0x20, 0x30, 0x0c, 0x02, 0x05, 0x09, 0x12, 0x1e, 0x04, 0x18, 0x10, 0x08, 0x10, 0x20, 0x28, 0x34, 0x06, 0x02, 0x01, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
                                                  }};
 
+static bool space_down = false, jump_pending = false;
+
+// Called from process_record_user on Space. The latch makes even a quick tap show one
+// jump frame.
+void luna_space(bool pressed) {
+    space_down = pressed;
+    if (pressed) jump_pending = true;
+}
+
+static void clear_line(uint8_t line) {  // one 8 px text line, full 32 px width
+    for (uint8_t i = 0; i < 32; i++) {
+        for (uint8_t j = 0; j < 8; j++) oled_write_pixel(i, line * 8 + j, false);
+    }
+}
+
 void render_luna(uint8_t x, uint8_t y) {
     static uint32_t anim_timer = 0;
-    static uint32_t anim_sleep = 0;
     static uint8_t  frame      = 0;
 
     uint8_t wpm  = get_current_wpm();
@@ -103,15 +117,10 @@ void render_luna(uint8_t x, uint8_t y) {
         } else {
             sprite = run[frame];
         }
-        oled_set_cursor(x, y);
+        bool jumping = space_down || jump_pending;
+        jump_pending = false;
+        clear_line(jumping ? y + 2 : y - 1);  // the line the sprite just left
+        oled_set_cursor(x, jumping ? y - 1 : y);
         oled_write_raw_P(sprite, ANIM_SIZE);
-    }
-
-    // Sleep with the rest of the keyboard; wake as soon as typing shows up in WPM.
-    if (wpm > 0 || mods) {
-        oled_on();
-        anim_sleep = timer_read32();
-    } else if (timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
-        oled_off();
     }
 }
