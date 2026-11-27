@@ -56,7 +56,7 @@ Font is JetBrains Mono / JetBrainsMono Nerd Font across terminals, waybar, and p
 
 `lily58.v2.layout.json` is the current VIA layout for a Lily58 split keyboard (load it in VIA); `lily58.layout.json` is the previous v1 layout, kept for reverting. Keybindings across tools are designed around it:
 
-- Thumbs: `Alt · NAV · Super · Space | Enter · Bksp · SYM · Del`. NAV and SYM are hold layers (`MO`); the inner bottom keys are mouse-layer toggle (left) and `=` (right).
+- Thumbs: `Alt · NAV · Super · Space | Enter · Bksp · SYM · Mouse`. NAV and SYM are hold layers (`MO`); Mouse is the mouse-layer toggle (`TG(3)`). The inner keys (under the OLEDs) are Print Screen (left, flameshot in sway) and `=` (right). Top-left is `` ` ``, top-right is Del.
 - Home-row left pinky is Ctrl on hold / Esc on tap; Shift is bottom-left.
 - sway `$mod` is Super (`Mod4`) so Alt stays free for zsh and LazyVim (`Alt+b/f/d`, `Alt+j/k`).
 - tmux prefix is the default `C-b` (home-row Ctrl + B, both left hand).
