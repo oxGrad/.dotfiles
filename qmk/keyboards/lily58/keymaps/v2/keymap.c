@@ -119,7 +119,7 @@ static void render_status(void) {
 // Left: typing speed over the last 32 s (one bar per second) above Luna.
 #define GRAPH_Y 4
 #define GRAPH_H 92  // ends at y 95: Luna jumps into y 96-103. Height = wpm * 2/3 (138 wpm = top)
-#define GRAPH_STEP 20  // dotted guide line every 20 wpm
+#define GRAPH_STEP 50  // dotted guide line every 50 wpm
 static void render_graph(void) {
     static uint8_t  hist[32];
     static uint32_t sample_timer = 0;
