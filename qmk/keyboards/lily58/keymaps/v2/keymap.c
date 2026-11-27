@@ -119,6 +119,7 @@ static void render_status(void) {
 // Left: typing speed over the last 32 s (one bar per second) above Luna.
 #define GRAPH_Y 4
 #define GRAPH_H 92  // ends at y 95: Luna jumps into y 96-103. Height = wpm * 2/3 (138 wpm = top)
+#define GRAPH_STEP 20  // dotted guide line every 20 wpm
 static void render_graph(void) {
     static uint8_t  hist[32];
     static uint32_t sample_timer = 0;
@@ -127,6 +128,9 @@ static void render_graph(void) {
     memmove(hist, hist + 1, sizeof(hist) - 1);
     hist[31] = get_current_wpm();
     fill_rect(0, GRAPH_Y, 32, GRAPH_H, false);
+    for (uint8_t w = GRAPH_STEP; w * 2 / 3 < GRAPH_H; w += GRAPH_STEP) {  // guides: one dot per 4 px
+        for (uint8_t x = 1; x < 32; x += 4) oled_write_pixel(x, GRAPH_Y + GRAPH_H - 1 - w * 2 / 3, true);
+    }
     // 1 px line, one point per second. Each column joins its point to the previous one so
     // steep changes stay connected. Zero speed draws nothing: the graph is blank when idle.
     uint8_t prev = 0;  // y of the previous point, 0 = none (points are always at y >= GRAPH_Y)
