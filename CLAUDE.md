@@ -54,7 +54,7 @@ Font is JetBrains Mono / JetBrainsMono Nerd Font across terminals, waybar, and p
 
 ## Keyboard & Modifiers
 
-`lily58.layout.json` is a VIA layout for a Lily58 split keyboard (load it in VIA). Keybindings across tools are designed around it:
+`lily58.v2.layout.json` is the current VIA layout for a Lily58 split keyboard (load it in VIA); `lily58.layout.json` is the previous v1 layout, kept for reverting. Keybindings across tools are designed around it:
 
 - Thumbs: `Alt · NAV · Super · Space | Enter · Bksp · SYM · Del`. NAV and SYM are hold layers (`MO`); the inner bottom keys are mouse-layer toggle (left) and `=` (right).
 - Home-row left pinky is Ctrl on hold / Esc on tap; Shift is bottom-left.
