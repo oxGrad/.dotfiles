@@ -60,6 +60,7 @@ Font is JetBrains Mono / JetBrainsMono Nerd Font across terminals, waybar, and p
 - Corne-ready: everything on NAV/SYM/NUM sits on the three letter rows and thumbs 2–4 (the keys a Corne has). Lily-only extras are the number row, outer thumbs, top corners and inner keys; Alt (outer left thumb) is the one base key with no Corne spot yet.
 - Home-row left pinky is Ctrl on hold / Esc on tap; Shift is bottom-left.
 - sway `$mod` is Super (`Mod4`) so Alt stays free for zsh and LazyVim (`Alt+b/f/d`, `Alt+j/k`).
+- sway workspaces: Super + `a s d f g` / `q w e r t` = 1–10 (add Shift to move a window), the same keys as the tmux window bindings; Super+1–0 still work. The defaults those letters displaced: launcher Super+p, fullscreen Super+m, kill Super+x, focus parent Super+u, split toggle Super+i, layout cycle Super+o, resize Super+z.
 - tmux prefix is the default `C-b` (home-row Ctrl + B, both left hand).
 
 ## Zsh Config Split
