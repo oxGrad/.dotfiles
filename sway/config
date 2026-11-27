@@ -80,6 +80,12 @@ assign [class="Spotify"] workspace 6
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.
 
+# Laptop keyboard: Caps Lock as Ctrl, to match the Lily58 v2 home-row Ctrl.
+# (The Lily58 sends no Caps Lock, so this doesn't affect it.)
+# input type:keyboard {
+#     xkb_options ctrl:nocaps
+# }
+
 ### Key bindings
 #
 # Basics:
